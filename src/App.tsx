@@ -5,8 +5,13 @@ import './App.css';
 
 import BasicExample from '@/components/temp';
 
+// Redux hooks
+import { useAppSelector, useAppDispatch } from '@/redux/hooks';
+import { increment } from './redux/slices/counterSlices';
+
 function App() {
-    const [count, setCount] = useState(0);
+    const dispatch = useAppDispatch();
+    const count = useAppSelector((state) => state.counter.value);
 
     return (
         <>
@@ -20,7 +25,7 @@ function App() {
             </div>
             <h1>Vite + React</h1>
             <div className="card">
-                <button onClick={() => setCount((count) => count + 1)}>count is {count}</button>
+                <button onClick={() => dispatch(increment())}>count is {count}</button>
                 <p>
                     Edit <code>src/App.tsx</code> and save to test HMR
                 </p>
