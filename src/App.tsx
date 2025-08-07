@@ -3,6 +3,8 @@ import reactLogo from './assets/react.svg';
 import viteLogo from '/vite.svg';
 import './App.css';
 
+import BasicExample from './components/temp';
+
 function App() {
     const [count, setCount] = useState(0);
 
@@ -24,6 +26,8 @@ function App() {
                 </p>
             </div>
             <p className="read-the-docs">Click on the Vite and React logos to learn more</p>
+
+            <BasicExample />
         </>
     );
 }
