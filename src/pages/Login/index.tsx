@@ -27,7 +27,7 @@ function Login(): JSX.Element {
                 <p className={cx('form__error')}>*error</p>
 
                 <div className={cx('form__button')}>
-                    <Button className={cx('button__content')}>Đăng nhập</Button>
+                    <Button className={cx('button__content')} typeButton="primary">Đăng nhập</Button>
                 </div>
             </form>
         </>

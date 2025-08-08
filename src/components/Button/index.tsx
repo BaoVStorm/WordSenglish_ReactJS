@@ -71,7 +71,7 @@ type ButtonProps = {
   to?: string;
   href?: string;
   onClick?: MouseEventHandler<HTMLButtonElement | HTMLAnchorElement>;
-  typeButton?: "primary" | "outline" | string; // hoặc cụ thể hơn nếu chỉ có 2 loại
+  typeButton?: "primary" | "outline"; // gồm 2 loại primary và outline
   rounded?: boolean;
   disable?: boolean;
   small?: boolean;
