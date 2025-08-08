@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import cx from 'classnames/bind';
-import styles from './Login.module.scss';
+
+import styles from './Register.module.scss';
 import routes from '@/config/routes';
+
 import logo from '@/assets/logo_doulingo.png';
 import TitleAuth from '@/pages/components/TitleAuth';
 import Input from '@/components/Input';
@@ -66,7 +68,6 @@ export default function Register() {
             console.log('error');
             setTouched({ username: true, password: true, rePassword: true });
         }
-
     };
 
     return (
