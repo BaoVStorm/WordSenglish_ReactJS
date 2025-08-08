@@ -72,10 +72,10 @@ export default function Register() {
 
     return (
         <>
-            <TitleAuth title="Đăng nhập" />
+            <TitleAuth title="Đăng ký" />
 
             <h3 className={cs('content__title')}>
-                Đăng nhập tài khoản <strong>WordSenglish</strong>
+                Đăng ký tài khoản <strong>WordSenglish</strong>
             </h3>
 
             <img className={cs('content__logo')} src={logo} alt="logo WordSenglish" />
@@ -106,7 +106,7 @@ export default function Register() {
                 <Input
                     type="password"
                     name="rePassword"
-                    placeholder="Mật khẩu"
+                    placeholder="Xác nhận mật khẩu"
                     autoComplete="off"
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -116,15 +116,15 @@ export default function Register() {
 
                 <div className={cs('form__button')}>
                     <Button className={cs('button__content')} typeButton="primary">
-                        Đăng nhập
+                        Đăng ký
                     </Button>
                 </div>
             </form>
 
             <div className={cs('content__navigate')}>
-                <p>Chưa có tài khoản? </p>
-                <Link to={routes.register} className={cs('navigate__content')}>
-                    Đăng ký tài khoản
+                <p>Đã có tài khoản? </p>
+                <Link to={routes.login} className={cs('navigate__content')}>
+                    Đăng nhập
                 </Link>
             </div>
         </>
