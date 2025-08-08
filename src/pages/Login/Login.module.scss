@@ -1,8 +1,17 @@
+$bottomMargin: 35px;
+
 .content__title {
     font-weight: 600;
     font-size: 1.5rem;
     margin-top: 20px;
-    margin-bottom: 45px;
+    margin-bottom: $bottomMargin;
+}
+
+.content__logo {
+    width: 225px;
+    height: 225px;
+
+    margin-bottom: $bottomMargin;
 }
 
 .content__form {

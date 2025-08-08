@@ -3,6 +3,7 @@ import classNames from 'classnames/bind';
 
 import styles from './Login.module.scss';
 
+import logo from '@/assets/logo_doulingo.png'
 import TitleAuth from '@/pages/components/TitleAuth';
 import Input from '@/components/Input';
 import Button from '@/components/Button';
@@ -15,6 +16,8 @@ function Login(): JSX.Element {
             <TitleAuth title="Đăng nhập" />
 
             <h3 className={cx('content__title')}>Đăng nhập tài khoản WordSenglish</h3>
+
+            <img className={cx('content__logo')} src={logo} alt="logo WordSenglish" />
 
             <form className={cx('content__form')}>
                 <Input type="text" name="username" placeholder="Tên đăng nhập" autoComplete="username" />
