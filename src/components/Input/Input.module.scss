@@ -1,0 +1,12 @@
+.input {
+    background-color: var(--white);
+    padding: 20px;
+    width: 320px;
+
+    border: 2px transparent solid;
+    border-radius: 15px;
+
+    &:focus {
+        border-color: var(--primary-lighter);
+    }
+}

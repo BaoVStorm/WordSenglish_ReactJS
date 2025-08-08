@@ -1,0 +1,19 @@
+.content__title {
+    font-weight: 600;
+    font-size: 1.5rem;
+    margin-top: 20px;
+    margin-bottom: 45px;
+}
+
+.content__form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    .form__error {
+        margin: 0;
+        font-size: 0.9rem;
+        color: #eb5757;
+    }
+}
+

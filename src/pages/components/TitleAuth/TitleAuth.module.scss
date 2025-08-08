@@ -1,0 +1,21 @@
+.wrapper {
+    height: 60px;
+    width: 100%;
+
+    background-color: var(--primary);
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 0px var(--primary-light);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.wrapper__title {
+    font-size: 1.5rem;
+    font-weight: 600;
+
+    margin: 0;
+}

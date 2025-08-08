@@ -9,7 +9,7 @@ const cx = classNames.bind(style);
 function DefaultLayout({ children }: ChildStyleProps): ReactElement {
     return (
         <div className={cx('wrapper')}>
-            <div className="content">{children}</div>
+            <div className={cx('content')}>{children}</div>
         </div>
     );
 }
