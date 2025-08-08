@@ -26,7 +26,9 @@ function Login(): JSX.Element {
                 <Input type="password" name="password" placeholder="Mật khẩu" autoComplete="off" />
                 <p className={cx('form__error')}>*error</p>
 
-                <Button>đăng nhập</Button>
+                <div className={cx('form__button')}>
+                    <Button className={cx('button__content')}>Đăng nhập</Button>
+                </div>
             </form>
         </>
     );
