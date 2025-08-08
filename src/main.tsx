@@ -1,8 +1,8 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
-import GlobalStyle from './components/GlobalStyle';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import GlobalStyle from './components/GlobalStyle';
 
 // Redux Toolkit
 import { Provider } from 'react-redux';
