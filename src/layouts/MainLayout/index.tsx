@@ -1,17 +1,18 @@
-import classNames from 'classnames/bind'
+import classNames from 'classnames/bind';
 
-import style from './MainLayout.module.scss'
+import type { ChildStyleProps } from '@/layouts/types/childrenTypes';
+import style from './MainLayout.module.scss';
+import type { ReactElement } from 'react';
 
 const cx = classNames.bind(style);
 
-
-function MainLayout() {
+function MainLayout({ children }: ChildStyleProps): ReactElement {
     return (
-        <div className={cx("wrapper")}>
+        <div className={cx('wrapper')}>
             MainLayout
+            <div className="content">{children}</div>
         </div>
-
-    )
+    );
 }
 
 export default MainLayout;
