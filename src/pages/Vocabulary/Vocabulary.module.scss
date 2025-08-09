@@ -1,0 +1,34 @@
+.maxContainer {
+    max-width: 700px;
+    padding: 0px 15px;
+
+    .hero-blog-heading-content {
+        width: 100%;
+        display: inline-block;
+        position: relative;
+        margin-top: 25px;
+
+        h2 {
+            font-size: 44px;
+            font-weight: 700;
+            color: #293749;
+            position: relative;
+            transform: rotateZ(359deg);
+        }
+
+        &:after {
+            content: url('/vocab/Vector.svg');;
+            position: absolute;
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    .hero-blog-heading-content-sub {
+        width: 100%;
+        display: inline-block;
+        margin-top: 40px;
+        max-width: 780px;
+    }
+}
