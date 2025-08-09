@@ -27,7 +27,8 @@ function Vocabulary(): JSX.Element {
     }, [location.search]);
 
     useEffect(() => {
-        console.log('Change: ', currentPage);
+        // console.log('Change: ', currentPage);
+        // fetch api
     }, [currentPage]);
 
     return (

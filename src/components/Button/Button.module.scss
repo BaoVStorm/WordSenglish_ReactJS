@@ -41,6 +41,20 @@
     box-shadow: 0 7px 0px #009b15;
 }
 
+.error {
+    color: white;
+
+    background: linear-gradient(270deg, #ad2424, #cb0404);
+    box-shadow: 0 6px 0px #9b0000;
+}
+
+.interact {
+    color: white;
+
+    background: linear-gradient(270deg, #2476ad, #0454cb);
+    box-shadow: 0 6px 0px #00489b;
+}
+
 .outline {
     color: var(--primary);
     border-color: currentColor;

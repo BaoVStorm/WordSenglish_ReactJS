@@ -1,5 +1,9 @@
-import { type JSX, useState } from 'react';
+import { Fragment, type JSX, useState } from 'react';
 import classNames from 'classnames/bind';
+
+import Input from '@/components/Input';
+import TextArea from '@/components/TextArea';
+import Button from '@/components/Button';
 
 import style from './CreateVocabulary.module.scss';
 
@@ -23,7 +27,9 @@ function CreateVocabulary(): JSX.Element {
         setWords(updated);
     };
 
-    const addWord = () => {
+    const addWord = (e:any) => {
+        e.preventDefault();
+
         setWords([...words, { name: '', pronunciation: '', meaning: '', example: '' }]);
     };
 
@@ -44,7 +50,7 @@ function CreateVocabulary(): JSX.Element {
             <form className={cx('form')} onSubmit={handleSubmit}>
                 <div className={cx('form-group')}>
                     <label className={cx('label')}>Title</label>
-                    <input
+                    <Input
                         className={cx('input')}
                         type="text"
                         value={title}
@@ -56,9 +62,10 @@ function CreateVocabulary(): JSX.Element {
 
                 <div className={cx('form-group')}>
                     <label className={cx('label')}>Description</label>
-                    <textarea
+                    <TextArea
                         className={cx('textarea')}
                         value={description}
+                        rows={5}
                         onChange={(e) => setDescription(e.target.value)}
                         placeholder="Enter description"
                     />
@@ -66,55 +73,61 @@ function CreateVocabulary(): JSX.Element {
 
                 <h2 className={cx('subheading')}>Words</h2>
                 {words.map((word, index) => (
-                    <div key={index} className={cx('word-item')}>
-                        <input
-                            className={cx('input')}
-                            type="text"
-                            placeholder="Word"
-                            value={word.name}
-                            onChange={(e) => handleWordChange(index, 'name', e.target.value)}
-                            required
-                        />
-                        <input
-                            className={cx('input')}
-                            type="text"
-                            placeholder="Pronunciation"
-                            value={word.pronunciation}
-                            onChange={(e) => handleWordChange(index, 'pronunciation', e.target.value)}
-                        />
-                        <input
-                            className={cx('input')}
-                            type="text"
-                            placeholder="Meaning"
-                            value={word.meaning}
-                            onChange={(e) => handleWordChange(index, 'meaning', e.target.value)}
-                            required
-                        />
-                        <input
-                            className={cx('input')}
-                            type="text"
-                            placeholder="Example sentence"
-                            value={word.example}
-                            onChange={(e) => handleWordChange(index, 'example', e.target.value)}
-                        />
-                        {words.length > 1 && (
-                            <button
-                                type="button"
-                                className={cx('remove-btn')}
-                                onClick={() => removeWord(index)}
-                            >
-                                Remove
-                            </button>
-                        )}
+                    <div key={index} className={cx('word-container')}>
+                        <div className={cx('word-item')}>
+                            <Input
+                                className={cx('input')}
+                                type="text"
+                                placeholder="Word"
+                                value={word.name}
+                                onChange={(e) => handleWordChange(index, 'name', e.target.value)}
+                                required
+                            />
+                            <Input
+                                className={cx('input')}
+                                type="text"
+                                placeholder="Pronunciation"
+                                value={word.pronunciation}
+                                onChange={(e) => handleWordChange(index, 'pronunciation', e.target.value)}
+                            />
+                            <Input
+                                className={cx('input')}
+                                type="text"
+                                placeholder="Meaning"
+                                value={word.meaning}
+                                onChange={(e) => handleWordChange(index, 'meaning', e.target.value)}
+                                required
+                            />
+                        </div>
+                        <div className={cx('word-item-2')}>
+                            <Input
+                                className={cx('input')}
+                                type="text"
+                                placeholder="Example sentence"
+                                value={word.example}
+                                onChange={(e) => handleWordChange(index, 'example', e.target.value)}
+                            />
+                            {words.length > 1 && (
+                                <Button
+                                    className={cx('remove-btn')}
+                                    onClick={() => removeWord(index)}
+                                    typeButton="error"
+                                >
+                                    Remove
+                                </Button>
+                            )}
+                        </div>
                     </div>
                 ))}
-                <button type="button" className={cx('add-btn')} onClick={addWord}>
+                <Button className={cx('add-btn')} onClick={addWord} typeButton="interact">
                     + Add Word
-                </button>
+                </Button>
 
-                <button type="submit" className={cx('submit-btn')}>
-                    Save Vocabulary
-                </button>
+                <div className={cx('submit-btn-container')}>
+                    <Button className={cx('submit-btn')} typeButton="primary">
+                        Save Vocabulary
+                    </Button>
+                </div>
             </form>
         </div>
     );

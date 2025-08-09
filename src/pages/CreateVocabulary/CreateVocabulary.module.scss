@@ -20,17 +20,15 @@
     font-weight: bold;
 }
 
-.input,
-.textarea {
+// form
+.input {
     width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
 }
 
 .textarea {
+    width: 100%;
     min-height: 80px;
-    resize: vertical;
+    resize: none;
 }
 
 .subheading {
@@ -38,30 +36,40 @@
     margin: 20px 0 10px;
 }
 
-.word-item {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr auto;
-    gap: 10px;
-    margin-bottom: 10px;
-    align-items: center;
+.word-container {
+    margin-bottom: 50px;
+
+    .word-item {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 10px;
+        margin-bottom: 10px;
+        align-items: center;
+    }
+
+    .word-item-2 {
+        display: flex;
+        gap: 20px;
+    }
 }
 
-.add-btn,
-.remove-btn,
-.submit-btn {
-    background: #007bff;
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 4px;
-    cursor: pointer;
+.submit-btn-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 50px;
+
+    .submit-btn {
+        max-width: 400px;
+        padding: 15px 30px;
+    }
 }
 
 .remove-btn {
-    background: #dc3545;
 }
 
 .add-btn {
+    padding: 12px 30px;
     margin-bottom: 20px;
 }
 
@@ -69,10 +77,4 @@
 .remove-btn:hover,
 .submit-btn:hover {
     opacity: 0.9;
-}
-
-.submit-btn {
-    display: block;
-    width: 100%;
-    font-size: 16px;
 }
