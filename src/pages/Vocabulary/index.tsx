@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState, type JSX } from 'react';
+import { useEffect, useState, type JSX } from 'react';
 import classNames from 'classnames/bind';
 import { useLocation } from 'react-router-dom';
 
@@ -12,6 +12,7 @@ const cx = classNames.bind(style);
 
 function Vocabulary(): JSX.Element {
     const location = useLocation();
+    const [totalPages, setTotalPages] = useState(22);
 
     const [currentPage, setCurrentPage] = useState(() => {
         const searchParams = new URLSearchParams(location.search);
@@ -53,12 +54,13 @@ function Vocabulary(): JSX.Element {
                         category="Memrise News & Events"
                         title={`Team Update #${i + 1}`}
                         description="Over the last couple of months, we’ve been pulling back the curtain on what..."
+                        user="VStorm"
                         date="31/07/2025"
                     />
                 ))}
             </div>
 
-            <Pagination currentPage={Number(currentPage)} totalPages={22} path={location.pathname} />
+            <Pagination currentPage={Number(currentPage)} totalPages={totalPages} path={location.pathname} />
         </>
     );
 }

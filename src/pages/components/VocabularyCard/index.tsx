@@ -13,6 +13,7 @@ interface VocabularyCardProps {
     title: string;
     description: string;
     date: string;
+    user: string;
     id: any;
 }
 
@@ -22,6 +23,7 @@ export default function VocabularyCard({
     title,
     description,
     date,
+    user,
     id,
 }: VocabularyCardProps): JSX.Element {
     return (
@@ -33,7 +35,10 @@ export default function VocabularyCard({
             <div className={cx('content')}>
                 <h3 className={cx('title')}>{title}</h3>
                 <p className={cx('description')}>{description}</p>
-                <span className={cx('date')}>{date}</span>
+                <div className={cx('more-des')}>
+                    <span className={cx('date')}>{date}</span>
+                    <span className={cx('user')}>By {user}</span>
+                </div>
             </div>
         </Link>
     );

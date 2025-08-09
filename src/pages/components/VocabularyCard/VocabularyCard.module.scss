@@ -37,6 +37,8 @@
 
 .content {
     padding: 16px;
+    display: flex;
+    flex-direction: column;
 }
 
 .title {
@@ -52,7 +54,17 @@
     margin-bottom: 12px;
 }
 
+.more-des {
+    display: flex;
+}
+
 .date {
     font-size: 0.8rem;
     color: #999;
+    flex: 1;
+}
+
+.user {
+    margin-right: 5px;
+    font-size: 0.8rem;
 }
