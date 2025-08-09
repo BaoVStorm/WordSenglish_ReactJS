@@ -1,5 +1,5 @@
 $background-color: #eeeeee;
-$content-background-color: #f8f8f8;
+$content-background-color: #fcfcfc;
 $header-height: 85px;
 
 .wrapper {
@@ -10,99 +10,6 @@ $header-height: 85px;
     display: flex;
     justify-content: center;
     position: relative;
-}
-
-.header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: $header-height;
-    background-color: #fff;
-    border-bottom: 1px solid #e6e6e6;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 20px;
-    z-index: 1000;
-
-    .logo {
-        margin-left: 30px;
-        height: 60px;
-
-        display: flex;
-        align-items: center;
-        gap: 10px; 
-
-        img {
-            height: 100%;
-            width: 100%;
-        }
-    
-        span {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary-light);
-            text-shadow: 2px 2px 0px var(--primary-dark);        
-        }
-    }
-
-    .nav {
-        display: flex;
-        gap: 35px;
-
-        .nav-item {
-            text-decoration: none;
-            color: #333;
-            padding: 8px 12px;
-            border-radius: 6px;
-            font-weight: 500;
-
-            &:hover {
-                background-color: rgba(0, 123, 255, 0.06);
-                color: #007bff;
-            }
-        }
-    }
-
-    .avatar-link {
-        display: inline-flex;
-        gap: 5px;
-        align-items: center;
-        justify-content: center;
-        margin-left: 8px;
-
-        span {
-            font-size: 1.1rem;
-            font-weight: 600;
-        }
-
-        .avatar-link__hi {
-            font-size: 1.2rem;
-            color: var(--primary);
-        }
-
-        .avatar {
-            width: 50px;
-            height: 50px;
-            margin-left: 15px;
-            margin-right: 30px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid transparent;
-            transition: border-color 0.15s ease;
-
-            &:hover {
-                border-color: var(--primary);
-            }
-        }
-    }
-}
-
-@media (max-width: 600px) {
-    .nav {
-        display: none; /* hoặc chuyển thành menu mobile */
-    }
 }
 
 // content
