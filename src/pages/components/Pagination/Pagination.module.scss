@@ -1,0 +1,33 @@
+.pagination {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    .arrow,
+    .page {
+        border: none;
+        background: none;
+        font-size: 16px;
+        cursor: pointer;
+        color: #555;
+
+        &.active {
+            font-weight: bold;
+            color: #1a2a3a;
+        }
+
+        &.disabled {
+            color: #bbb;
+            pointer-events: none;
+        }
+
+        &:hover:not(.disabled):not(.active) {
+            color: #f0a500;
+        }
+    }
+
+    .dots {
+        color: #999;
+        font-size: 16px;
+    }
+}

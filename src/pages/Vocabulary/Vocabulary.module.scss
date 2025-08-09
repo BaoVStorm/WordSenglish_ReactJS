@@ -17,7 +17,7 @@
         }
 
         &:after {
-            content: url('/vocab/Vector.svg');;
+            content: url('/vocab/Vector.svg');
             position: absolute;
             display: block;
             width: 100%;
@@ -30,5 +30,24 @@
         display: inline-block;
         margin-top: 40px;
         max-width: 780px;
+    }
+}
+
+// word container
+.word-container {
+    margin-top: 30px;
+    width: 100%;
+    display: grid;
+
+    justify-content: center; // căn ngang
+    justify-items: center; // căn ngang từng item (nếu muốn)
+
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px; // khoảng cách giữa các card
+    padding: 20px 60px;
+
+    @media (max-width: 768px) {
+        grid-template-columns: 1fr; // trên mobile chỉ 1 cột
+        padding: 10px;
     }
 }
