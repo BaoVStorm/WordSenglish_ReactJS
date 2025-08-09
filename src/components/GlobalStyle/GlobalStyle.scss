@@ -3,25 +3,25 @@
 // Font emmbeded
 @font-face {
     font-family: ProximaNova;
-    src: url('./fonts/Font-Regular.woff2');
+    src: url('/fonts/Font-Regular.woff2');
     font-weight: 400;
 }
 
 @font-face {
     font-family: ProximaNova;
-    src: url('./fonts/Font-Semibold.woff2');
+    src: url('/fonts/Font-Semibold.woff2');
     font-weight: 600;
 }
 
 @font-face {
     font-family: ProximaNova;
-    src: url('./fonts/Font-Bold.woff2');
+    src: url('/fonts/Font-Bold.woff2');
     font-weight: 700;
 }
 
 @font-face {
     font-family: SofiaPro;
-    src: url('./DisplayFont-Bold.woff2');
+    src: url('/DisplayFont-Bold.woff2');
     font-weight: 700;
 }
 
@@ -45,13 +45,13 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
 
-body {
     font-family: 'ProximaNova', sans-serif;
     font-optical-sizing: auto;
     font-style: normal;
+}
 
+body {
     text-rendering: optimizeSpeed;
 
     font-size: 1rem;
