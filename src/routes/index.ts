@@ -24,6 +24,9 @@ const publicRoutes: Route[] = [
     { path: config.routes.vocabulary, component: Vocabulary, layout: MainLayout },
     { path: config.routes.detailVocabulary, component: DetailVocabulary, layout: MainLayout },
     { path: config.routes.createVocabulary, component: CreateVocabulary, layout: MainLayout },
+
+    // notFound
+    { path: config.routes.notFound, component: NotFound, layout: MainLayout },
 ];
 
 // require login
