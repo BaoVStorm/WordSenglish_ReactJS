@@ -6,6 +6,8 @@ import style from './Header.module.scss';
 import avatar from '@/assets/avatar.png';
 import logo from '@/assets/logo_doulingo.png';
 
+import routes from '@/config/routes';
+
 const cx = classNames.bind(style);
 
 function Header(): JSX.Element {
@@ -19,11 +21,11 @@ function Header(): JSX.Element {
 
                 <nav className={cx('nav')}>
                     <NavLink
-                        to="/vocabulary"
+                        to={routes.vocabulary}
                         className={({ isActive }) =>
                             // Khi là /vocabulary hoặc /vocabulary/:id thì active
-                            location.pathname.startsWith('/vocabulary') &&
-                            !location.pathname.startsWith('/vocabulary/create')
+                            location.pathname.startsWith(routes.vocabulary) &&
+                            !location.pathname.startsWith(routes.createVocabulary)
                                 ? cx('active', 'nav-item')
                                 : cx('nav-item')
                         }
@@ -32,9 +34,9 @@ function Header(): JSX.Element {
                     </NavLink>
 
                     <NavLink
-                        to="/vocabulary/create"
+                        to={routes.createVocabulary}
                         className={({ isActive }) =>
-                            location.pathname.startsWith('/vocabulary/create')
+                            location.pathname.startsWith(routes.createVocabulary)
                                 ? cx('active', 'nav-item')
                                 : cx('nav-item')
                         }
