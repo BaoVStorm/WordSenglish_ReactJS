@@ -46,7 +46,12 @@ function CreateVocabulary(): JSX.Element {
 
     return (
         <div className={cx('container')}>
-            <h1 className={cx('heading')}>Create New Vocabulary</h1>
+            <div className={cx('maxContainer')}>
+                <div className={cx('hero-blog-heading-content')}>
+                    <h2>Create Vocabularies:</h2>
+                </div>
+            </div>
+
             <form className={cx('form')} onSubmit={handleSubmit}>
                 <div className={cx('form-group')}>
                     <label className={cx('label')}>Title</label>
@@ -71,7 +76,7 @@ function CreateVocabulary(): JSX.Element {
                     />
                 </div>
 
-                <h2 className={cx('subheading')}>Words</h2>
+                <h2 className={cx('label')}>Words</h2>
                 {words.map((word, index) => (
                     <div key={index} className={cx('word-container')}>
                         <div className={cx('word-item')}>
@@ -110,7 +115,7 @@ function CreateVocabulary(): JSX.Element {
                             {words.length > 1 && (
                                 <Button
                                     className={cx('remove-btn')}
-                                    onClick={() => removeWord(index)}
+                                    onClick={(e) => {e.preventDefault(); removeWord(index)}}
                                     typeButton="error"
                                 >
                                     Remove
