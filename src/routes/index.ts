@@ -1,4 +1,4 @@
-import { Home, Login, Register, Forgot, NotFound } from '@/pages';
+import { Home, Login, Register, Forgot, NotFound, Vocabulary, CreateVocabulary, DetailVocabulary } from '@/pages';
 import config from '@/config';
 
 // Layouts
@@ -15,9 +15,15 @@ const publicRoutes: Route[] = [
     { path: '/', component: Home, layout: MainLayout },
     { path: config.routes.home, component: Home, layout: MainLayout },
 
+    // auth
     { path: config.routes.login, component: Login, layout: DefaultLayout },
     { path: config.routes.register, component: Register, layout: DefaultLayout },
     { path: config.routes.forget, component: Forgot, layout: DefaultLayout },
+
+    // vocabulary
+    { path: config.routes.vocabulary, component: Vocabulary, layout: MainLayout },
+    { path: config.routes.detailVocabulary, component: DetailVocabulary, layout: MainLayout },
+    { path: config.routes.createVocabulary, component: CreateVocabulary, layout: MainLayout },
 ];
 
 // require login

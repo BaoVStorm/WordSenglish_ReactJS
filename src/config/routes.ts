@@ -6,7 +6,8 @@ const routes = {
     forget: '/forget',
 
     vocabulary: '/vocabulary',
-    createVocabulary: '/vocabulary/create'
+    detailVocabulary: '/vocabulary/detail',
+    createVocabulary: '/vocabulary/create',
 } as const;
 
 export default routes;
