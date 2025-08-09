@@ -1,4 +1,4 @@
-import { useMemo, type JSX } from 'react';
+import { useEffect, useMemo, useState, type JSX } from 'react';
 import classNames from 'classnames/bind';
 import { useLocation } from 'react-router-dom';
 
@@ -13,10 +13,21 @@ const cx = classNames.bind(style);
 function Vocabulary(): JSX.Element {
     const location = useLocation();
 
-    const searchParams = new URLSearchParams(location.search);
-    const currentPage = searchParams.get('page') || 1;
+    const [currentPage, setCurrentPage] = useState(() => {
+        const searchParams = new URLSearchParams(location.search);
+        return Number(searchParams.get('page')) || 1;
+    });
 
-    console.log(currentPage);
+    useEffect(() => {
+        const searchParams = new URLSearchParams(location.search);
+        const curPage = Number(searchParams.get('page')) || 1;
+
+        if (currentPage !== curPage) setCurrentPage(curPage);
+    }, [location.search]);
+
+    useEffect(() => {
+        console.log('Change: ', currentPage);
+    }, [currentPage]);
 
     return (
         <>

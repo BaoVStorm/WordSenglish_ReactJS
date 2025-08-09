@@ -1,24 +1,29 @@
 .pagination {
     display: flex;
+    margin: 35px 0px;
     align-items: center;
-    gap: 8px;
+    gap: 20px;
+    font-size: 1.3rem;
 
     .arrow,
     .page {
         border: none;
         background: none;
-        font-size: 16px;
         cursor: pointer;
-        color: #555;
+        color: #bbbbbb;
+        font-weight: 700;
 
         &.active {
-            font-weight: bold;
-            color: #1a2a3a;
+            font-weight: 800;
+            color: #000000;
         }
 
         &.disabled {
-            color: #bbb;
             pointer-events: none;
+
+            img {
+                opacity: 0.5;
+            }
         }
 
         &:hover:not(.disabled):not(.active) {
@@ -28,6 +33,5 @@
 
     .dots {
         color: #999;
-        font-size: 16px;
     }
 }
