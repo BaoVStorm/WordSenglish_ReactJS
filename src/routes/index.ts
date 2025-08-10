@@ -12,8 +12,11 @@ interface Route {
 }
 
 const publicRoutes: Route[] = [
-    { path: '/', component: Home, layout: MainLayout },
-    { path: config.routes.home, component: Home, layout: MainLayout },
+    // { path: '/', component: Home, layout: MainLayout },
+    // { path: config.routes.home, component: Home, layout: MainLayout },
+    // --------- tạm lưu vocabulary làm home
+    { path: '/', component: Vocabulary, layout: MainLayout },
+    { path: config.routes.home, component: Vocabulary, layout: MainLayout },
 
     // auth
     { path: config.routes.login, component: Login, layout: DefaultLayout },
