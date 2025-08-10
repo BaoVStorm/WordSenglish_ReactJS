@@ -1,9 +1,6 @@
 // authService.js
 import axios from 'axios';
 
-export let accessToken: any = localStorage.getItem('accessToken');
-export let refreshToken: any = localStorage.getItem('refreshToken');
-
 // Set base Axios instance
 const api = axios.create({
     baseURL: import.meta.env.VITE_BACKEND_API, // Your backend URL
@@ -11,6 +8,7 @@ const api = axios.create({
 
 // Set Authorization header for every request
 api.interceptors.request.use((config) => {
+    const accessToken: any = localStorage.getItem('accessToken');
     if (accessToken) {
         config.headers.Authorization = `Bearer ${accessToken}`;
     }
@@ -21,6 +19,7 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
     (response) => response,
     async (error) => {
+        const refreshToken: any = localStorage.getItem('refreshToken');
         const originalRequest = error.config;
 
         if (error.response?.status === 401 && refreshToken && !originalRequest._retry) {
@@ -31,10 +30,11 @@ api.interceptors.response.use(
                 const res = await api.post('/api/auth/refresh', { refreshToken });
 
                 // Save new token
-                accessToken = res.data.accessToken;
+                const newAccessToken = res.data.accessToken;
+                localStorage.setItem('accessToken', newAccessToken);
 
                 // Retry failed request
-                originalRequest.headers.Authorization = `Bearer ${accessToken}`;
+                originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
                 return api(originalRequest);
             } catch (err) {
                 console.error('Refresh token expired or invalid');
@@ -50,11 +50,8 @@ export const login = async (username: string, password: string) => {
     try {
         const res = await api.post('/api/auth/login', { username, password });
 
-        accessToken = res.data.accessToken;
-        refreshToken = res.data.refreshToken;
-
-        localStorage.setItem('accessToken', accessToken);
-        localStorage.setItem('refreshToken', refreshToken);
+        localStorage.setItem('accessToken', res.data.accessToken);
+        localStorage.setItem('refreshToken', res.data.refreshToken);
 
         // console.log(res.data);
 
@@ -76,11 +73,8 @@ export const register = async (username: string, password: string) => {
     try {
         const res = await api.post('/api/auth/register', { username, password });
 
-        accessToken = res.data.accessToken;
-        refreshToken = res.data.refreshToken;
-
-        localStorage.setItem('accessToken', accessToken);
-        localStorage.setItem('refreshToken', refreshToken);
+        localStorage.setItem('accessToken', res.data.accessToken);
+        localStorage.setItem('refreshToken', res.data.refreshToken);
 
         // console.log(res.data);
 
@@ -98,14 +92,26 @@ export const register = async (username: string, password: string) => {
     }
 };
 
-export const logout = () => {
-    accessToken = null;
-    refreshToken = null;
-    localStorage.removeItem('refreshToken');
+export const logout = async () => {
+    try {
+        await api.post('/api/auth/logout');
+
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('refreshToken');
+    } catch (err: any) {
+        // Get backend error message if available
+        const message =
+            err.response?.data?.msg || // your backend's "msg"
+            err.response?.data?.message || // fallback if backend uses "message"
+            err.message || // network or Axios error
+            'Unknown error occurred';
+
+        // Re-throw with a clean message
+        throw new Error(message);
+    }
 };
 
 export const getProfile = async () => {
     const res = await api.get('/api/auth/profile');
     return res.data;
 };
-

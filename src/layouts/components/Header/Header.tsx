@@ -1,6 +1,11 @@
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import type { JSX } from 'react';
 import classNames from 'classnames/bind';
+
+import Dropdown from 'react-bootstrap/Dropdown';
+
+import { useSelector } from 'react-redux';
+import { logout } from '@/services/authService';
 
 import style from './Header.module.scss';
 import avatar from '@/assets/avatar.png';
@@ -11,6 +16,22 @@ import routes from '@/config/routes';
 const cx = classNames.bind(style);
 
 function Header(): JSX.Element {
+    const navigate = useNavigate();
+
+    const username = useSelector((state : any) => state.user.username);
+
+    const handleLogout = async () => {
+        console.log('logout');
+
+        try {
+            await logout();
+            // login
+            navigate(routes.login);
+        } catch (err: any) {
+            alert(err.message);
+        }
+    };
+
     return (
         <>
             <header className={cx('header')}>
@@ -45,11 +66,20 @@ function Header(): JSX.Element {
                     </NavLink>
                 </nav>
 
-                <div className={cx('avatar-link')} aria-label="Tài khoản">
+                <Dropdown className={cx('avatar-link')}>
                     <span className={cx('avatar-link__hi')}>Hello</span>
-                    <span>VStorm</span>
-                    <img src={avatar} alt="Avatar" className={cx('avatar')} />
-                </div>
+                    <span>{username}</span>
+
+                    <Dropdown.Toggle className={cx('dropdown-avar')}>
+                        <img src={avatar} alt="Avatar" className={cx('avatar')} />
+                    </Dropdown.Toggle>
+
+                    <Dropdown.Menu>
+                        <Dropdown.Item className={cx('dropdown-logout')} onClick={handleLogout}>
+                            Đăng xuất
+                        </Dropdown.Item>
+                    </Dropdown.Menu>
+                </Dropdown>
             </header>
         </>
     );

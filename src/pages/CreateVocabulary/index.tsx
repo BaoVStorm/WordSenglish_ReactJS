@@ -1,9 +1,17 @@
-import { type JSX, useState } from 'react';
+import { type JSX, useState, useEffect } from 'react';
 import classNames from 'classnames/bind';
 
 import Input from '@/components/Input';
 import TextArea from '@/components/TextArea';
 import Button from '@/components/Button';
+
+import routes from '@/config/routes';
+
+import { useNavigate } from 'react-router-dom';
+import { getProfile } from '@/services/authService';
+
+import { useDispatch } from 'react-redux';
+import { setUsername } from '@/redux/slices/userSlices';
 
 import style from './CreateVocabulary.module.scss';
 
@@ -20,6 +28,22 @@ function CreateVocabulary(): JSX.Element {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [words, setWords] = useState<Word[]>([{ name: '', pronunciation: '', meaning: '', example: '' }]);
+    const navigate = useNavigate();
+
+    // set Username to redux
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        (async () => {
+            try {
+                const profile = await getProfile();
+                dispatch(setUsername(profile.username));
+            } catch (err: any) {
+                navigate(routes.login);
+            }
+        })();
+    }, [navigate]);
+    // 
 
     const handleWordChange = (index: number, field: keyof Word, value: string) => {
         const updated = [...words];

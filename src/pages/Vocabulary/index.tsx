@@ -6,6 +6,14 @@ import style from './Vocabulary.module.scss';
 import VocabularyCard from '@/pages/components/VocabularyCard';
 import Pagination from '@/pages/components/Pagination';
 
+//
+import { useNavigate } from 'react-router-dom';
+import { getProfile } from '@/services/authService';
+import { useDispatch } from 'react-redux';
+import { setUsername } from '@/redux/slices/userSlices';
+import routes from '@/config/routes';
+//
+
 import tempCover from '@/assets/vocab/cover_image.png';
 
 const cx = classNames.bind(style);
@@ -18,6 +26,23 @@ function Vocabulary(): JSX.Element {
         const searchParams = new URLSearchParams(location.search);
         return Number(searchParams.get('page')) || 1;
     });
+
+    const navigate = useNavigate();
+
+    // set Username to redux
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        (async () => {
+            try {
+                const profile = await getProfile();
+                dispatch(setUsername(profile.username));
+            } catch (err: any) {
+                navigate(routes.login);
+            }
+        })();
+    }, [navigate]);
+    //
 
     useEffect(() => {
         const searchParams = new URLSearchParams(location.search);

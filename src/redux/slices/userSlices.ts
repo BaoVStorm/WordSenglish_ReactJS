@@ -1,45 +1,23 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import axios from 'axios'
+import { createSlice } from '@reduxjs/toolkit';
 
-// First, create the thunk
-export const fetchAllUsers = createAsyncThunk(
-    'users/fetchAllUsers', // này là 1 action, tên tự đặt
-    async () => {
-        const response = await axios.get("http://localhost:8080/users/all");
-        return response.data;
-    }
-)
+type initialType = {
+    username: string;
+};
 
-const initialState = {
-    listUsers: [],
-    isLoading: false,
-    isError: false
-}
+const initialState: initialType = {
+    username: 'GUEST',
+};
 
-export const counterSlice = createSlice({
-  name: 'counter',
-  initialState,
-  reducers: {
-   
-  },
-  extraReducers: (builder) => {
-    builder
-        .addCase(fetchAllUsers.pending, (state, action) => {
-            state.isLoading = true;
-            state.isError = false;
-        })
-        .addCase(fetchAllUsers.fulfilled, (state, action) => {
-            state.listUsers = action.payload;
-            state.isLoading = false;
-            state.isError = false;
-        })
-        .addCase(fetchAllUsers.rejected, (state, action) => {
-            state.isLoading = false;
-            state.isError = true;
-        })
-    }
-})
+export const userSlice = createSlice({
+    name: 'counter',
+    initialState,
+    reducers: {
+        setUsername: (state, action) => {
+            state.username = action.payload;
+        },
+    },
+});
 
-// export const { increment, decrement, incrementByAmount} = counterSlice.actions
+export const { setUsername } = userSlice.actions;
 
-export default counterSlice.reducer
+export default userSlice.reducer;

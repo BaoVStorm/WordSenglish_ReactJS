@@ -5,6 +5,12 @@ import classNames from 'classnames/bind';
 import styles from './DetailVocabulary.module.scss';
 import VocabularyWord from '@/pages/components/VocabularyWord';
 
+
+import { useNavigate } from 'react-router-dom';
+import { getProfile } from '@/services/authService';
+import { useDispatch } from 'react-redux';
+import { setUsername } from '@/redux/slices/userSlices';
+
 import routes from '@/config/routes';
 
 const cx = classNames.bind(styles);
@@ -30,8 +36,25 @@ const DetailVocabulary: React.FC = () => {
     const id = searchParams.get('id');
     const [data, setData] = useState<VocabularyDetailData | null>(null);
     const [loading, setLoading] = useState(true);
+    const navigate = useNavigate();
 
     if (!id) return <Navigate to={routes.notFound} />;
+
+    // set Username to redux
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        (async () => {
+            try {
+                const profile = await getProfile();
+                dispatch(setUsername(profile.username));
+            } catch (err: any) {
+                navigate(routes.login);
+            }
+        })();
+    }, [navigate]);
+    // 
+
 
     useEffect(() => {
         // Ví dụ fetch từ API
