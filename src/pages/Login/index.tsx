@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import cx from 'classnames/bind';
 
 import styles from './Login.module.scss';
 import routes from '@/config/routes';
+
+import { login, getProfile } from '@/services/authService';
 
 import logo from '@/assets/logo_doulingo.png';
 import TitleAuth from '@/pages/components/TitleAuth';
@@ -19,8 +21,24 @@ export default function Login() {
         password: '',
     });
 
+    const navigate = useNavigate();
+
     const [touched, setTouched] = useState<Record<string, boolean>>({});
     const [errors, setErrors] = useState<Record<string, string>>({});
+
+    // kiểm tra nếu đã đăng nhập goto home
+    useEffect(() => {
+        (async () => {
+            try {
+                // Try fetching user profile — if accessToken is valid, this works
+                await getProfile();
+                navigate(routes.home); // Already logged in → go home
+            } catch (err: any) {
+                // If 401, accessToken may be invalid — optionally try refresh flow here
+                console.log('Not logged in:', err.response?.data || err.message);
+            }
+        })();
+    }, [navigate]);
 
     // Validate khi value hoặc touched thay đổi
     useEffect(() => {
@@ -44,16 +62,23 @@ export default function Login() {
         setTouched((prev) => ({ ...prev, [name]: true }));
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         // Mark tất cả là touched để hiện lỗi nếu chưa nhập
         setTouched({ username: true, password: true });
 
         if (Object.keys(errors).length === 0 && form.username && form.password) {
-            console.log('succ');
-        } else {
-            console.log('error');
+            try {
+                const data = await login(form.username, form.password);
+                // login
+                navigate(routes.home);
+            } catch (err: any) {
+                alert(err.message);
+            }
         }
+        // else {
+        //     console.log('error');
+        // }
     };
 
     return (

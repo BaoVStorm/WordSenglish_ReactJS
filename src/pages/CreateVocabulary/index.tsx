@@ -1,4 +1,4 @@
-import { Fragment, type JSX, useState } from 'react';
+import { type JSX, useState } from 'react';
 import classNames from 'classnames/bind';
 
 import Input from '@/components/Input';
@@ -27,7 +27,7 @@ function CreateVocabulary(): JSX.Element {
         setWords(updated);
     };
 
-    const addWord = (e:any) => {
+    const addWord = (e: any) => {
         e.preventDefault();
 
         setWords([...words, { name: '', pronunciation: '', meaning: '', example: '' }]);
@@ -115,7 +115,10 @@ function CreateVocabulary(): JSX.Element {
                             {words.length > 1 && (
                                 <Button
                                     className={cx('remove-btn')}
-                                    onClick={(e) => {e.preventDefault(); removeWord(index)}}
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        removeWord(index);
+                                    }}
                                     typeButton="error"
                                 >
                                     Remove
