@@ -69,7 +69,7 @@ export default function Login() {
 
         if (Object.keys(errors).length === 0 && form.username && form.password) {
             try {
-                const data = await login(form.username, form.password);
+                await login(form.username, form.password);
                 // login
                 navigate(routes.home);
             } catch (err: any) {

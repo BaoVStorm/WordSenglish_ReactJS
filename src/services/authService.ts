@@ -56,7 +56,7 @@ export const login = async (username: string, password: string) => {
         localStorage.setItem('accessToken', accessToken);
         localStorage.setItem('refreshToken', refreshToken);
 
-        console.log(res.data);
+        // console.log(res.data);
 
         return res.data;
     } catch (err: any) {
@@ -71,9 +71,31 @@ export const login = async (username: string, password: string) => {
         throw new Error(message);
     }
 };
-export const getProfile = async () => {
-    const res = await api.get('/api/auth/profile');
-    return res.data;
+
+export const register = async (username: string, password: string) => {
+    try {
+        const res = await api.post('/api/auth/register', { username, password });
+
+        accessToken = res.data.accessToken;
+        refreshToken = res.data.refreshToken;
+
+        localStorage.setItem('accessToken', accessToken);
+        localStorage.setItem('refreshToken', refreshToken);
+
+        // console.log(res.data);
+
+        return res.data;
+    } catch (err: any) {
+        // Get backend error message if available
+        const message =
+            err.response?.data?.msg || // your backend's "msg"
+            err.response?.data?.message || // fallback if backend uses "message"
+            err.message || // network or Axios error
+            'Unknown error occurred';
+
+        // Re-throw with a clean message
+        throw new Error(message);
+    }
 };
 
 export const logout = () => {
@@ -81,3 +103,9 @@ export const logout = () => {
     refreshToken = null;
     localStorage.removeItem('refreshToken');
 };
+
+export const getProfile = async () => {
+    const res = await api.get('/api/auth/profile');
+    return res.data;
+};
+
