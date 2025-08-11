@@ -112,8 +112,38 @@ $header-height: 85px;
     }
 }
 
-@media (max-width: 600px) {
-    .nav {
-        display: none; /* hoặc chuyển thành menu mobile */
+@media (max-width: 900px) {
+    .header {
+        .logo {
+            span {
+                display: none;
+            }
+        }
+    }
+}
+
+@media (max-width: 730px) {
+    .header {
+        .logo {
+            display: none;
+        }
+    }
+}
+
+
+@media (max-width: 620px) {
+    .header {
+        .avatar-link {
+            span {
+                display: none;
+            }
+        }
+
+        .nav {
+            .nav-item {
+                width: calc(33vw);
+                font-size: calc(3vw);
+            }
+        }
     }
 }
