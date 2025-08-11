@@ -7,7 +7,7 @@ import VocabularyWord from '@/pages/components/VocabularyWord';
 
 import IconHeart from '@/components/IconHeart';
 import { useNavigate } from 'react-router-dom';
-import { getProfile, getVocabItems, toggleLove } from '@/services/authService';
+import { getProfile, getVocabItems, toggleLove } from '@/services/Service';
 import { useDispatch } from 'react-redux';
 import { setUsername } from '@/redux/slices/userSlices';
 
@@ -139,7 +139,7 @@ const DetailVocabulary: React.FC = () => {
 
             <div className={cx('banner-line')}></div>
 
-            <CommentContainer postId={id} className={cx('comment-container')}/>
+            <CommentContainer postId={id} className={cx('comment-container')} />
         </div>
     );
 };

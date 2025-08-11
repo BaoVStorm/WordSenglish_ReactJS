@@ -5,7 +5,7 @@ import classNames from 'classnames/bind';
 import Dropdown from 'react-bootstrap/Dropdown';
 
 import { useSelector } from 'react-redux';
-import { logout } from '@/services/authService';
+import { logout } from '@/services/Service';
 
 import style from './Header.module.scss';
 import avatar from '@/assets/avatar.png';
@@ -18,7 +18,7 @@ const cx = classNames.bind(style);
 function Header(): JSX.Element {
     const navigate = useNavigate();
 
-    const username = useSelector((state : any) => state.user.username);
+    const username = useSelector((state: any) => state.user.username);
 
     const handleLogout = async () => {
         // console.log('logout');
@@ -45,8 +45,9 @@ function Header(): JSX.Element {
                         to={routes.vocabulary}
                         className={({ isActive }) =>
                             // Khi là /vocabulary hoặc /vocabulary/:id thì active
-                            location.pathname.endsWith(routes.vocabulary) || location.pathname.startsWith(routes.home) &&
-                            !location.pathname.startsWith(routes.createVocabulary)
+                            location.pathname.endsWith(routes.vocabulary) ||
+                            (location.pathname.startsWith(routes.home) &&
+                                !location.pathname.startsWith(routes.createVocabulary))
                                 ? cx('active', 'nav-item')
                                 : cx('nav-item')
                         }

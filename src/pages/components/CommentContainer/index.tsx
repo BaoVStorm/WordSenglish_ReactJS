@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef, useCallback } from 'react';
 import classNames from 'classnames/bind';
 
 import styles from './CommentContainer.module.scss';
-import { getComments, addComment } from '@/services/authService';
+import { getComments, addComment } from '@/services/Service';
 
 import TextArea from '@/components/TextArea';
 import Button from '@/components/Button';

@@ -5,7 +5,7 @@ import cx from 'classnames/bind';
 import styles from './Login.module.scss';
 import routes from '@/config/routes';
 
-import { login, getProfile } from '@/services/authService';
+import { login, getProfile } from '@/services/Service';
 
 import logo from '@/assets/logo_doulingo.png';
 import TitleAuth from '@/pages/components/TitleAuth';

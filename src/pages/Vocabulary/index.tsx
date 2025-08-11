@@ -8,7 +8,7 @@ import Pagination from '@/pages/components/Pagination';
 
 //
 import { useNavigate } from 'react-router-dom';
-import { getProfile, getPosts } from '@/services/authService';
+import { getProfile, getPosts } from '@/services/Service';
 import { useDispatch } from 'react-redux';
 import { setUsername } from '@/redux/slices/userSlices';
 import routes from '@/config/routes';
@@ -22,7 +22,7 @@ function Vocabulary(): JSX.Element {
     const location = useLocation();
     const [totalPages, setTotalPages] = useState(22);
     const [posts, setPosts] = useState([]);
-    
+
     const [currentPage, setCurrentPage] = useState(() => {
         const searchParams = new URLSearchParams(location.search);
         return Number(searchParams.get('page')) || 1;
@@ -58,8 +58,8 @@ function Vocabulary(): JSX.Element {
             try {
                 const postsData = await getPosts(curPage);
                 console.log('Posts:', postsData);
-                setTotalPages(postsData.totalPages)
-                setPosts(postsData.posts) 
+                setTotalPages(postsData.totalPages);
+                setPosts(postsData.posts);
             } catch (err) {
                 console.error('Failed to load posts:', err);
             }
@@ -89,8 +89,7 @@ function Vocabulary(): JSX.Element {
             </div>
 
             <div className={cx('word-container')}>
-                {
-                    posts.map((post : any, index) => (
+                {posts.map((post: any, index) => (
                     <VocabularyCard
                         key={`post-${index}`}
                         id={post._id}
@@ -102,9 +101,7 @@ function Vocabulary(): JSX.Element {
                         date={post.created_at.split('T')[0]}
                         love={post.love}
                     />
-                ))
-                }
-
+                ))}
             </div>
 
             <Pagination currentPage={Number(currentPage)} totalPages={totalPages} path={location.pathname} />

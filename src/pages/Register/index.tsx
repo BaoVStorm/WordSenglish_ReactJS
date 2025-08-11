@@ -5,7 +5,7 @@ import cx from 'classnames/bind';
 import styles from './Register.module.scss';
 import routes from '@/config/routes';
 
-import { register, getProfile } from '@/services/authService';
+import { register, getProfile } from '@/services/Service';
 
 import logo from '@/assets/logo_doulingo.png';
 import TitleAuth from '@/pages/components/TitleAuth';
@@ -32,7 +32,7 @@ export default function Register() {
             try {
                 // Try fetching user profile — if accessToken is valid, this works
                 await getProfile();
-                navigate(routes.home); 
+                navigate(routes.home);
             } catch (err: any) {
                 // If 401, accessToken may be invalid — optionally try refresh flow here
                 console.log('Not logged in:', err.response?.data || err.message);

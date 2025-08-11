@@ -8,7 +8,7 @@ import Button from '@/components/Button';
 import routes from '@/config/routes';
 
 import { useNavigate } from 'react-router-dom';
-import { getProfile, createPosts } from '@/services/authService';
+import { getProfile, createPosts } from '@/services/Service';
 
 import { useDispatch } from 'react-redux';
 import { setUsername } from '@/redux/slices/userSlices';
@@ -77,7 +77,7 @@ function CreateVocabulary(): JSX.Element {
             // console.log('Data to submit:', data);
         } catch (err: any) {
             console.log('Not logged in:', err.response?.data || err.message);
-            alert(err.response?.data || err.message || "Error");
+            alert(err.response?.data || err.message || 'Error');
         }
     };
 
