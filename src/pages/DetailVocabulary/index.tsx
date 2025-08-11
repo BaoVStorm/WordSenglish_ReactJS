@@ -139,7 +139,7 @@ const DetailVocabulary: React.FC = () => {
 
             <div className={cx('banner-line')}></div>
 
-            <CommentContainer postId={id} />
+            <CommentContainer postId={id} className={cx('comment-container')}/>
         </div>
     );
 };

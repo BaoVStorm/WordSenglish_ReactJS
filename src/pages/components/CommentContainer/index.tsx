@@ -1,8 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import classNames from 'classnames/bind';
 
 import styles from './CommentContainer.module.scss';
 import { getComments, addComment } from '@/services/authService';
+
+import TextArea from '@/components/TextArea';
+import Button from '@/components/Button';
 
 const cx = classNames.bind(styles);
 
@@ -15,11 +18,13 @@ interface Comment {
 
 interface Props {
     postId: string;
+    className?: any;
 }
 
-const CommentContainer: React.FC<Props> = ({ postId }) => {
+const CommentContainer: React.FC<Props> = ({ postId, className }) => {
     const [comments, setComments] = useState<Comment[]>([]);
     const [newComment, setNewComment] = useState('');
+    const textareaRef = useRef<HTMLTextAreaElement>(null);
 
     useEffect(() => {
         (async () => {
@@ -35,16 +40,32 @@ const CommentContainer: React.FC<Props> = ({ postId }) => {
         setNewComment('');
     };
 
+    const handleInput = useCallback(() => {
+        const el = textareaRef.current;
+        if (!el) return;
+
+        el.style.height = 'auto'; // reset to shrink if needed
+        const computed = getComputedStyle(el);
+        const maxHeight = parseInt(computed.maxHeight);
+
+        // Grow until maxHeight
+        el.style.height = Math.min(el.scrollHeight, maxHeight) + 'px';
+    }, []);
+
     return (
-        <div className={cx('comments-section')}>
+        <div className={cx(className, 'comments-section')}>
             <h3>Comments</h3>
             <div className={cx('comment-input')}>
-                <textarea
-                    value={newComment}
+                <TextArea
+                    rows={1}
                     onChange={(e) => setNewComment(e.target.value)}
                     placeholder="Write your comment..."
+                    ref={textareaRef}
+                    onInput={handleInput}
+                    value={newComment}
                 />
-                <button onClick={handleAddComment}>Post</button>
+
+                <Button onClick={handleAddComment} typeButton={'interact'}>Post</Button>
             </div>
             <ul className={cx('comment-list')}>
                 {comments.map((c) => (

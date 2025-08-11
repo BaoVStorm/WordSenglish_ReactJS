@@ -56,10 +56,9 @@
     }
 }
 
-
 .vocabulary-words {
     padding: 0px 20px;
-    margin-top: 50px;
+    margin: 50px 10px 60px;
     display: flex;
     flex-direction: column;
     gap: 30px;
@@ -80,3 +79,8 @@
         opacity: 0.6;
     }
 }
+
+.comment-container {
+    margin: 40px 0px;
+}
+
