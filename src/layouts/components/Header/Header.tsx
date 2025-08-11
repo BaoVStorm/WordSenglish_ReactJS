@@ -45,7 +45,7 @@ function Header(): JSX.Element {
                         to={routes.vocabulary}
                         className={({ isActive }) =>
                             // Khi là /vocabulary hoặc /vocabulary/:id thì active
-                            location.pathname.startsWith(routes.vocabulary) &&
+                            location.pathname.startsWith(routes.vocabulary) || location.pathname.startsWith(routes.home) &&
                             !location.pathname.startsWith(routes.createVocabulary)
                                 ? cx('active', 'nav-item')
                                 : cx('nav-item')

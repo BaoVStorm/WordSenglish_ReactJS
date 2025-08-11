@@ -139,3 +139,18 @@ export const createPosts = async (title: string, description: string, vocab_item
         throw new Error(message);
     }
 };
+
+export const getPosts = async (page: number) => {
+    try {
+        const res = await api.get('/api/post/posts', {
+            params: { page },
+        });
+
+        return res.data;
+    } catch (err: any) {
+        const message =
+            err.response?.data?.msg || err.response?.data?.message || err.message || 'Unknown error occurred';
+
+        throw new Error(message);
+    }
+};

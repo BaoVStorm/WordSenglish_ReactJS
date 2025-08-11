@@ -12,59 +12,69 @@
         transform: translateY(-4px);
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     }
-}
 
-.imageWrapper {
-    position: relative;
-}
+    .imageWrapper {
+        position: relative;
 
-.image {
-    width: 100%;
-    display: block;
-}
+        .image {
+            width: 100%;
+            display: block;
+        }
 
-.category {
-    position: absolute;
-    left: 12px;
-    bottom: 12px;
-    background-color: #fff;
-    color: #0a6ebd;
-    padding: 4px 8px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    border-radius: 4px;
-}
+        .category {
+            position: absolute;
+            left: 12px;
+            bottom: 12px;
+            background-color: #fff;
+            color: #0a6ebd;
+            padding: 4px 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border-radius: 4px;
+        }
+    }
 
-.content {
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-}
+    .content {
+        height: 140px;
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
 
-.title {
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: #333;
-    margin-bottom: 8px;
-}
+        .title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 8px;
+        }
 
-.description {
-    font-size: 0.9rem;
-    color: #555;
-    margin-bottom: 12px;
-}
+        .description {
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 12px;
+            margin-top: 2px;
 
-.more-des {
-    display: flex;
-}
+            flex: 1;
 
-.date {
-    font-size: 0.8rem;
-    color: #999;
-    flex: 1;
-}
+            display: -webkit-box;
+            -webkit-line-clamp: 2; /* Limit to 2 lines */
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
 
-.user {
-    margin-right: 5px;
-    font-size: 0.8rem;
+        .more-des {
+            margin-top: 4px;
+            display: flex;
+
+            .date {
+                font-size: 0.8rem;
+                color: #999;
+                flex: 1;
+            }
+
+            .user {
+                margin-right: 5px;
+                font-size: 0.8rem;
+            }
+        }
+    }
 }

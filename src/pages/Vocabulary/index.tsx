@@ -8,7 +8,7 @@ import Pagination from '@/pages/components/Pagination';
 
 //
 import { useNavigate } from 'react-router-dom';
-import { getProfile } from '@/services/authService';
+import { getProfile, getPosts } from '@/services/authService';
 import { useDispatch } from 'react-redux';
 import { setUsername } from '@/redux/slices/userSlices';
 import routes from '@/config/routes';
@@ -21,7 +21,8 @@ const cx = classNames.bind(style);
 function Vocabulary(): JSX.Element {
     const location = useLocation();
     const [totalPages, setTotalPages] = useState(22);
-
+    const [posts, setPosts] = useState([]);
+    
     const [currentPage, setCurrentPage] = useState(() => {
         const searchParams = new URLSearchParams(location.search);
         return Number(searchParams.get('page')) || 1;
@@ -32,6 +33,7 @@ function Vocabulary(): JSX.Element {
     // set Username to redux
     const dispatch = useDispatch();
 
+    // check auth
     useEffect(() => {
         (async () => {
             try {
@@ -48,7 +50,22 @@ function Vocabulary(): JSX.Element {
         const searchParams = new URLSearchParams(location.search);
         const curPage = Number(searchParams.get('page')) || 1;
 
-        if (currentPage !== curPage) setCurrentPage(curPage);
+        if (currentPage !== curPage) {
+            setCurrentPage(curPage);
+        }
+
+        const fetchData = async () => {
+            try {
+                const postsData = await getPosts(curPage);
+                console.log('Posts:', postsData);
+                setTotalPages(postsData.totalPages)
+                setPosts(postsData.posts) 
+            } catch (err) {
+                console.error('Failed to load posts:', err);
+            }
+        };
+
+        fetchData();
     }, [location.search]);
 
     useEffect(() => {
@@ -72,18 +89,21 @@ function Vocabulary(): JSX.Element {
             </div>
 
             <div className={cx('word-container')}>
-                {Array.from({ length: 10 }).map((_, i) => (
+                {
+                    posts.map((post : any, index) => (
                     <VocabularyCard
-                        key={i}
-                        id={i}
+                        key={`post-${index}`}
+                        id={post._id}
                         imageUrl={tempCover}
                         category="Memrise News & Events"
-                        title={`Team Update #${i + 1}`}
-                        description="Over the last couple of months, we’ve been pulling back the curtain on what..."
-                        user="VStorm"
-                        date="31/07/2025"
+                        title={post.title}
+                        description={post.description}
+                        user={post.username}
+                        date={post.created_at.split('T')[0]}
                     />
-                ))}
+                ))
+                }
+
             </div>
 
             <Pagination currentPage={Number(currentPage)} totalPages={totalPages} path={location.pathname} />
