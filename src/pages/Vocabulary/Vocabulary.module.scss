@@ -1,4 +1,4 @@
-$max-width:750px;
+$max-width: 770px;
 
 .maxContainer {
     width: 100%;
@@ -13,6 +13,7 @@ $max-width:750px;
         display: inline-block;
         position: relative;
         margin-top: 45px;
+        margin-left: 20px;
 
         h2 {
             font-size: 44px;
@@ -34,9 +35,9 @@ $max-width:750px;
     .hero-blog-heading-content-sub {
         width: 100%;
         max-width: calc($max-width + 20px);
-
         display: inline-block;
         margin-top: 50px;
+        margin-left: 20px;
     }
 }
 
@@ -56,5 +57,13 @@ $max-width:750px;
     @media (max-width: 768px) {
         grid-template-columns: 1fr; // trên mobile chỉ 1 cột
         padding: 10px;
+    }
+}
+
+@media (max-width: 768px) {
+    .maxContainer {
+        .hero-blog-heading-content {
+            text-align: center;
+        }
     }
 }
