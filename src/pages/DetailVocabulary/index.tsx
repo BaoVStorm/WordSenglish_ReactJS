@@ -1,5 +1,5 @@
 // DetailVocabulary.tsx
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useSearchParams, Navigate } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from './DetailVocabulary.module.scss';
@@ -7,7 +7,7 @@ import VocabularyWord from '@/pages/components/VocabularyWord';
 
 import IconHeart from '@/components/IconHeart';
 import { useNavigate } from 'react-router-dom';
-import { getProfile, getVocabItems } from '@/services/authService';
+import { getProfile, getVocabItems, toggleLove } from '@/services/authService';
 import { useDispatch } from 'react-redux';
 import { setUsername } from '@/redux/slices/userSlices';
 
@@ -58,10 +58,10 @@ const DetailVocabulary: React.FC = () => {
 
     useEffect(() => {
         setLoading(true);
-        
+
         const fetchData = async () => {
             try {
-                const postsData :any = await getVocabItems(id);
+                const postsData: any = await getVocabItems(id);
                 console.log('Posts:', postsData);
 
                 const post = postsData.post;
@@ -74,9 +74,9 @@ const DetailVocabulary: React.FC = () => {
                     love: post.love,
                     words: postsData.vocabItems,
                 });
-                
+
                 setLoading(false);
-            } catch (err) { 
+            } catch (err) {
                 console.error('Failed to load posts:', err);
                 setLoading(false);
             }
@@ -84,6 +84,22 @@ const DetailVocabulary: React.FC = () => {
 
         fetchData();
     }, [id]);
+
+    const handleLove = useCallback(async () => {
+        try {
+            setData((prev) =>
+                prev
+                    ? {
+                          ...prev,
+                          love: !prev.love,
+                      }
+                    : prev,
+            );
+            await toggleLove(id);
+        } catch (err) {
+            console.error('Failed to load posts:', err);
+        }
+    }, []);
 
     if (loading) return <p>Loading...</p>;
     if (!data) return <p>Không tìm thấy dữ liệu</p>;
@@ -97,7 +113,7 @@ const DetailVocabulary: React.FC = () => {
                 </p>
                 <p className={cx('vocabulary-description')}>{data.description}</p>
                 <div className={cx('vocabulary-heart')}>
-                    <IconHeart className={cx('vocabulary-heart-icon')} check={data.love}/>
+                    <IconHeart className={cx('vocabulary-heart-icon')} check={data.love} onClick={handleLove} />
                 </div>
             </div>
 

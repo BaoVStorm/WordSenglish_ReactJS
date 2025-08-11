@@ -1,17 +1,17 @@
 import heart from '@/assets/icon/heart.png';
 import fullHeart from '@/assets/icon/full-heart-red.png';
-import { type JSX } from 'react';
+import { memo, type JSX } from 'react';
 
 type IconHeartType = {
     className: any;
     check?: boolean;
     transparent?: boolean;
-};
+} & React.HTMLAttributes<HTMLImageElement>;
 
-function IconHeart({ className, check = false, transparent = false }: IconHeartType): JSX.Element {
+function IconHeart({ className, check = false, transparent = false, ...props}: IconHeartType): JSX.Element {
     const Type = check ? fullHeart : (transparent ? "" : heart);
 
-    return <img className={className} src={Type} />;
+    return <img className={className} src={Type} {...props} />;
 }
 
-export default IconHeart;
+export default memo(IconHeart);

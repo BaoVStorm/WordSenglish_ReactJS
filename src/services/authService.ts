@@ -172,3 +172,17 @@ export const getVocabItems = async (post_id: string) => {
     }
 };
 
+export const toggleLove = async (post_id: string) => {
+    try {
+        const res = await api.post('/api/love/toggleLove', {
+            post_id,
+        });
+
+        return res.data;
+    } catch (err: any) {
+        const message =
+            err.response?.data?.msg || err.response?.data?.message || err.message || 'Unknown error occurred';
+
+        throw new Error(message);
+    }
+};
