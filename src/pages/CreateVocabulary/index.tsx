@@ -8,7 +8,7 @@ import Button from '@/components/Button';
 import routes from '@/config/routes';
 
 import { useNavigate } from 'react-router-dom';
-import { getProfile } from '@/services/authService';
+import { getProfile, createPosts } from '@/services/authService';
 
 import { useDispatch } from 'react-redux';
 import { setUsername } from '@/redux/slices/userSlices';
@@ -18,16 +18,16 @@ import style from './CreateVocabulary.module.scss';
 const cx = classNames.bind(style);
 
 interface Word {
-    name: string;
+    word_en: string;
     pronunciation: string;
-    meaning: string;
+    meaning_vi: string;
     example: string;
 }
 
 function CreateVocabulary(): JSX.Element {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
-    const [words, setWords] = useState<Word[]>([{ name: '', pronunciation: '', meaning: '', example: '' }]);
+    const [words, setWords] = useState<Word[]>([{ word_en: '', pronunciation: '', meaning_vi: '', example: '' }]);
     const navigate = useNavigate();
 
     // set Username to redux
@@ -43,7 +43,7 @@ function CreateVocabulary(): JSX.Element {
             }
         })();
     }, [navigate]);
-    // 
+    //
 
     const handleWordChange = (index: number, field: keyof Word, value: string) => {
         const updated = [...words];
@@ -54,18 +54,31 @@ function CreateVocabulary(): JSX.Element {
     const addWord = (e: any) => {
         e.preventDefault();
 
-        setWords([...words, { name: '', pronunciation: '', meaning: '', example: '' }]);
+        setWords([...words, { word_en: '', pronunciation: '', meaning_vi: '', example: '' }]);
     };
 
     const removeWord = (index: number) => {
         setWords(words.filter((_, i) => i !== index));
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        const payload = { title, description, words };
-        console.log('Data to submit:', payload);
-        // TODO: Gửi payload tới API
+        console.log('Submiting');
+        // const payload = { title, description, words };
+        try {
+            await createPosts(title, description, words);
+            alert('Vocabulary post created successfully!');
+
+            // clear input
+            setTitle('');
+            setDescription('');
+            setWords([]);
+
+            // console.log('Data to submit:', data);
+        } catch (err: any) {
+            console.log('Not logged in:', err.response?.data || err.message);
+            alert(err.response?.data || err.message || "Error");
+        }
     };
 
     return (
@@ -108,8 +121,8 @@ function CreateVocabulary(): JSX.Element {
                                 className={cx('input')}
                                 type="text"
                                 placeholder="Word"
-                                value={word.name}
-                                onChange={(e) => handleWordChange(index, 'name', e.target.value)}
+                                value={word.word_en}
+                                onChange={(e) => handleWordChange(index, 'word_en', e.target.value)}
                                 required
                             />
                             <Input
@@ -123,8 +136,8 @@ function CreateVocabulary(): JSX.Element {
                                 className={cx('input')}
                                 type="text"
                                 placeholder="Meaning"
-                                value={word.meaning}
-                                onChange={(e) => handleWordChange(index, 'meaning', e.target.value)}
+                                value={word.meaning_vi}
+                                onChange={(e) => handleWordChange(index, 'meaning_vi', e.target.value)}
                                 required
                             />
                         </div>

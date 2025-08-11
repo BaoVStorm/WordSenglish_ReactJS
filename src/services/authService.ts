@@ -115,3 +115,27 @@ export const getProfile = async () => {
     const res = await api.get('/api/auth/profile');
     return res.data;
 };
+
+// create Posts
+export const createPosts = async (title: string, description: string, vocab_items: any[]) => {
+    try {
+        const res = await api.post('/api/post/create', {
+            title,
+            description,
+            vocab_items,
+        });
+
+        // console.log({
+        //     title,
+        //     description,
+        //     vocab_items,
+        // })
+
+        return res.data;
+    } catch (err: any) {
+        const message =
+            err.response?.data?.msg || err.response?.data?.message || err.message || 'Unknown error occurred';
+
+        throw new Error(message);
+    }
+};
