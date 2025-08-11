@@ -5,6 +5,7 @@ import classNames from 'classnames/bind';
 import styles from './DetailVocabulary.module.scss';
 import VocabularyWord from '@/pages/components/VocabularyWord';
 
+import IconHeart from '@/components/IconHeart';
 import { useNavigate } from 'react-router-dom';
 import { getProfile, getVocabItems } from '@/services/authService';
 import { useDispatch } from 'react-redux';
@@ -93,6 +94,9 @@ const DetailVocabulary: React.FC = () => {
                     <span>By {data.author}</span> • <span>{new Date(data.date).toLocaleDateString()}</span>
                 </p>
                 <p className={cx('vocabulary-description')}>{data.description}</p>
+                <div className={cx('vocabulary-heart')}>
+                    <IconHeart className={cx('vocabulary-heart-icon')} check/>
+                </div>
             </div>
 
             <div className={cx('banner-line')}></div>

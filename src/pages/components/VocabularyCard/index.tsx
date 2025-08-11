@@ -17,6 +17,7 @@ interface VocabularyCardProps {
     date: string;
     user: string;
     id: any;
+    love?: boolean
 }
 
 export default function VocabularyCard({
@@ -26,12 +27,13 @@ export default function VocabularyCard({
     date,
     user,
     id,
+    love = false
 }: VocabularyCardProps): JSX.Element {
     return (
         <Link to={routes.detailVocabulary + `?post_id=${id}`} className={cx('card')}>
             <div className={cx('imageWrapper')}>
                 <img src={imageUrl} alt={title} className={cx('image')} />
-                <IconHeart className={cx('category')} transparent check/>
+                <IconHeart className={cx('category')} transparent check={love}/>
             </div>
             <div className={cx('content')}>
                 <h3 className={cx('title')}>{title}</h3>

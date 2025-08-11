@@ -100,6 +100,7 @@ function Vocabulary(): JSX.Element {
                         description={post.description}
                         user={post.username}
                         date={post.created_at.split('T')[0]}
+                        love={post.love}
                     />
                 ))
                 }
