@@ -29,6 +29,7 @@ interface VocabularyDetailData {
     description: string;
     date: string;
     love: boolean;
+    loveCount: number;
     words: VocabularyWordData[];
 }
 
@@ -72,6 +73,7 @@ const DetailVocabulary: React.FC = () => {
                     date: post.created_at.split('T')[0],
                     description: post.description,
                     love: post.love,
+                    loveCount: post.loveCount,
                     words: postsData.vocabItems,
                 });
 
@@ -92,6 +94,7 @@ const DetailVocabulary: React.FC = () => {
                     ? {
                           ...prev,
                           love: !prev.love,
+                          loveCount: prev.love ? prev.loveCount - 1 : prev.loveCount + 1,
                       }
                     : prev,
             );
@@ -113,6 +116,7 @@ const DetailVocabulary: React.FC = () => {
                 </p>
                 <p className={cx('vocabulary-description')}>{data.description}</p>
                 <div className={cx('vocabulary-heart')}>
+                    <p className={cx('vocabulary-heart-count')}>Love count: {data.loveCount}</p>
                     <IconHeart className={cx('vocabulary-heart-icon')} check={data.love} onClick={handleLove} />
                 </div>
             </div>
