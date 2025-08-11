@@ -6,14 +6,21 @@ import { getComments, addComment } from '@/services/authService';
 
 import TextArea from '@/components/TextArea';
 import Button from '@/components/Button';
+import Comment from '@/components/Comment';
 
 const cx = classNames.bind(styles);
+
+interface user {
+    _id: string;
+    user_name: string;
+}
 
 interface Comment {
     _id: string;
     user_name: string;
     content: string;
     created_at: string;
+    user: user;
 }
 
 interface Props {
@@ -29,6 +36,7 @@ const CommentContainer: React.FC<Props> = ({ postId, className }) => {
     useEffect(() => {
         (async () => {
             const data = await getComments(postId);
+            console.log(data);
             setComments(data);
         })();
     }, [postId]);
@@ -36,6 +44,7 @@ const CommentContainer: React.FC<Props> = ({ postId, className }) => {
     const handleAddComment = async () => {
         if (!newComment.trim()) return;
         const comment = await addComment(postId, newComment);
+        console.log(comment);
         setComments((prev) => [comment, ...prev]);
         setNewComment('');
     };
@@ -65,14 +74,14 @@ const CommentContainer: React.FC<Props> = ({ postId, className }) => {
                     value={newComment}
                 />
 
-                <Button onClick={handleAddComment} typeButton={'interact'}>Post</Button>
+                <Button onClick={handleAddComment} typeButton={'interact'}>
+                    Post
+                </Button>
             </div>
             <ul className={cx('comment-list')}>
                 {comments.map((c) => (
                     <li key={c._id}>
-                        <strong>{c.user_name}</strong>
-                        <span>{new Date(c.created_at).toLocaleString()}</span>
-                        <p>{c.content}</p>
+                        <Comment username={c.user.user_name} date={c.created_at} content={c.content} />
                     </li>
                 ))}
             </ul>
