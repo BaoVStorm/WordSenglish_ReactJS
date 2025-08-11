@@ -28,6 +28,7 @@ interface VocabularyDetailData {
     title: string;
     description: string;
     date: string;
+    love: boolean;
     words: VocabularyWordData[];
 }
 
@@ -70,7 +71,8 @@ const DetailVocabulary: React.FC = () => {
                     author: post.username,
                     date: post.created_at.split('T')[0],
                     description: post.description,
-                    words: postsData.vocabItems
+                    love: post.love,
+                    words: postsData.vocabItems,
                 });
                 
                 setLoading(false);
@@ -95,7 +97,7 @@ const DetailVocabulary: React.FC = () => {
                 </p>
                 <p className={cx('vocabulary-description')}>{data.description}</p>
                 <div className={cx('vocabulary-heart')}>
-                    <IconHeart className={cx('vocabulary-heart-icon')} check/>
+                    <IconHeart className={cx('vocabulary-heart-icon')} check={data.love}/>
                 </div>
             </div>
 
