@@ -116,6 +116,8 @@ export const getProfile = async () => {
     return res.data;
 };
 
+// ------------------- posts
+
 // create Posts
 export const createPosts = async (title: string, description: string, vocab_items: any[]) => {
     try {
@@ -154,3 +156,19 @@ export const getPosts = async (page: number) => {
         throw new Error(message);
     }
 };
+
+export const getVocabItems = async (post_id: string) => {
+    try {
+        const res = await api.get('/api/vocabItem/vocabItems', {
+            params: { post_id },
+        });
+
+        return res.data;
+    } catch (err: any) {
+        const message =
+            err.response?.data?.msg || err.response?.data?.message || err.message || 'Unknown error occurred';
+
+        throw new Error(message);
+    }
+};
+

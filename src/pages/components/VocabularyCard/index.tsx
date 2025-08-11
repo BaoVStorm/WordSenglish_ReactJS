@@ -2,14 +2,16 @@ import type { JSX } from 'react';
 import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
 
+import IconHeart from '@/components/IconHeart';
 import routes from '@/config/routes';
 import styles from './VocabularyCard.module.scss';
+
 
 const cx = classNames.bind(styles);
 
 interface VocabularyCardProps {
     imageUrl: string;
-    category: string;
+    category?: string;
     title: string;
     description: string;
     date: string;
@@ -19,7 +21,6 @@ interface VocabularyCardProps {
 
 export default function VocabularyCard({
     imageUrl,
-    category,
     title,
     description,
     date,
@@ -27,10 +28,10 @@ export default function VocabularyCard({
     id,
 }: VocabularyCardProps): JSX.Element {
     return (
-        <Link to={routes.detailVocabulary + `?id=${id}`} className={cx('card')}>
+        <Link to={routes.detailVocabulary + `?post_id=${id}`} className={cx('card')}>
             <div className={cx('imageWrapper')}>
                 <img src={imageUrl} alt={title} className={cx('image')} />
-                <span className={cx('category')}>{category}</span>
+                <IconHeart className={cx('category')} transparent check/>
             </div>
             <div className={cx('content')}>
                 <h3 className={cx('title')}>{title}</h3>

@@ -5,9 +5,8 @@ import classNames from 'classnames/bind';
 import styles from './DetailVocabulary.module.scss';
 import VocabularyWord from '@/pages/components/VocabularyWord';
 
-
 import { useNavigate } from 'react-router-dom';
-import { getProfile } from '@/services/authService';
+import { getProfile, getVocabItems } from '@/services/authService';
 import { useDispatch } from 'react-redux';
 import { setUsername } from '@/redux/slices/userSlices';
 
@@ -16,10 +15,10 @@ import routes from '@/config/routes';
 const cx = classNames.bind(styles);
 
 interface VocabularyWordData {
-    id: string | number;
-    word: string;
+    _id: string | number;
+    word_en: string;
     pronunciation?: string;
-    meaning: string;
+    meaning_vi: string;
     example?: string;
 }
 
@@ -33,7 +32,7 @@ interface VocabularyDetailData {
 
 const DetailVocabulary: React.FC = () => {
     const [searchParams] = useSearchParams();
-    const id = searchParams.get('id');
+    const id = searchParams.get('post_id');
     const [data, setData] = useState<VocabularyDetailData | null>(null);
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
@@ -53,25 +52,34 @@ const DetailVocabulary: React.FC = () => {
             }
         })();
     }, [navigate]);
-    // 
-
+    //
 
     useEffect(() => {
-        // Ví dụ fetch từ API
-        // fetch(`/api/vocabularies/${id}`)
-        //     .then((res) => res.json())
-        //     .then((result: VocabularyDetailData) => {
-        //         setData(result);
-        //     })
-        //     .catch((err) => {
-        //         console.error('Error fetching vocabulary:', err);
-        //     })
-        //     .finally(() => {
-        //         setLoading(false);
-        //     });
+        setLoading(true);
+        
+        const fetchData = async () => {
+            try {
+                const postsData :any = await getVocabItems(id);
+                console.log('Posts:', postsData);
 
-        setData(DATA);
-        setLoading(false);
+                const post = postsData.post;
+
+                setData({
+                    title: post.title,
+                    author: post.username,
+                    date: post.created_at.split('T')[0],
+                    description: post.description,
+                    words: postsData.vocabItems
+                });
+                
+                setLoading(false);
+            } catch (err) { 
+                console.error('Failed to load posts:', err);
+                setLoading(false);
+            }
+        };
+
+        fetchData();
     }, [id]);
 
     if (loading) return <p>Loading...</p>;
@@ -92,46 +100,16 @@ const DetailVocabulary: React.FC = () => {
             <div className={cx('vocabulary-words')}>
                 {data.words.map((word) => (
                     <VocabularyWord
-                        key={word.id}
-                        word={word.word}
+                        key={word._id}
+                        word={word.word_en}
                         pronunciation={word.pronunciation}
-                        meaning={word.meaning}
+                        meaning={word.meaning_vi}
                         example={word.example}
                     />
                 ))}
             </div>
         </div>
     );
-};
-
-const DATA: VocabularyDetailData = {
-    title: 'Common English Phrases',
-    author: 'John Doe',
-    date: '2025-08-09T10:30:00Z',
-    description: 'A collection of useful English phrases for daily conversation.',
-    words: [
-        {
-            id: 1,
-            word: 'Hello',
-            pronunciation: 'həˈloʊ',
-            meaning: 'A greeting or expression of goodwill',
-            example: 'Hello, how are you?',
-        },
-        {
-            id: 2,
-            word: 'Thank you',
-            pronunciation: 'ˈθæŋk juː',
-            meaning: 'A polite expression of gratitude',
-            example: 'Thank you for helping me.',
-        },
-        {
-            id: 3,
-            word: 'Excuse me',
-            pronunciation: 'ɪkˈskjuːz mi',
-            meaning: "A polite way to get someone's attention",
-            example: 'Excuse me, could you tell me the time?',
-        },
-    ],
 };
 
 export default DetailVocabulary;
