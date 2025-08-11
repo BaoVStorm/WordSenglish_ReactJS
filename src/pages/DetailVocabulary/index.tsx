@@ -11,6 +11,8 @@ import { getProfile, getVocabItems, toggleLove } from '@/services/authService';
 import { useDispatch } from 'react-redux';
 import { setUsername } from '@/redux/slices/userSlices';
 
+import CommentContainer from '@/pages/components/CommentContainer';
+
 import routes from '@/config/routes';
 
 const cx = classNames.bind(styles);
@@ -134,6 +136,10 @@ const DetailVocabulary: React.FC = () => {
                     />
                 ))}
             </div>
+
+            <div className={cx('banner-line')}></div>
+
+            <CommentContainer postId={id} />
         </div>
     );
 };

@@ -186,3 +186,35 @@ export const toggleLove = async (post_id: string) => {
         throw new Error(message);
     }
 };
+
+// comment service
+export const getComments = async (post_id: string) => {
+    try {
+        const res = await api.get('/api/comment/getComments', {
+            params: { post_id },
+        });
+
+        return res.data;
+    } catch (err: any) {
+        const message =
+            err.response?.data?.msg || err.response?.data?.message || err.message || 'Unknown error occurred';
+
+        throw new Error(message);
+    }
+};
+
+export const addComment = async (post_id: string, content: string) => {
+    try {
+        const res = await api.post('/api/comment/addComment', {
+            post_id,
+            content,
+        });
+
+        return res.data;
+    } catch (err: any) {
+        const message =
+            err.response?.data?.msg || err.response?.data?.message || err.message || 'Unknown error occurred';
+
+        throw new Error(message);
+    }
+};
