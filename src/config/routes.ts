@@ -6,6 +6,7 @@ const routes = {
     forget: '/forget',
 
     vocabulary: '/vocabulary',
+    yourVocabulary: '/yourVocabulary',
     detailVocabulary: '/vocabulary/detail',
     createVocabulary: '/vocabulary/create',
     editVocabulary: '/vocabulary/edit',

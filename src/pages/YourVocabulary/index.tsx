@@ -2,7 +2,7 @@ import { useEffect, useState, type JSX } from 'react';
 import classNames from 'classnames/bind';
 import { useLocation } from 'react-router-dom';
 
-import style from './Vocabulary.module.scss';
+import style from './YourVocabulary.module.scss';
 import VocabularyCard from '@/pages/components/VocabularyCard';
 import Pagination from '@/pages/components/Pagination';
 

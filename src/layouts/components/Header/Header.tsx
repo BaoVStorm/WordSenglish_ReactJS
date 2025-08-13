@@ -52,7 +52,16 @@ function Header(): JSX.Element {
                     >
                         Danh sách từ vựng
                     </NavLink>
-
+                    <NavLink
+                        to={routes.yourVocabulary}
+                        className={({ isActive }) =>
+                            location.pathname.startsWith(routes.yourVocabulary)
+                                ? cx('active', 'nav-item')
+                                : cx('nav-item')
+                        }
+                    >
+                        Danh sách của bạn
+                    </NavLink>
                     <NavLink
                         to={routes.createVocabulary}
                         className={({ isActive }) =>

@@ -6,6 +6,7 @@ export { default as Forgot } from './Forgot';
 export { default as NotFound } from './NotFound';
 
 export { default as Vocabulary } from './Vocabulary';
+export { default as YourVocabulary } from './YourVocabulary';
 export { default as CreateVocabulary } from './CreateVocabulary';
 export { default as EditVocabulary } from './EditVocabulary';
 export { default as DetailVocabulary } from './DetailVocabulary';

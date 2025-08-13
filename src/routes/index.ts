@@ -5,6 +5,7 @@ import {
     Forgot,
     NotFound,
     Vocabulary,
+    YourVocabulary,
     CreateVocabulary,
     DetailVocabulary,
     EditVocabulary,
@@ -35,6 +36,7 @@ const publicRoutes: Route[] = [
 
     // vocabulary
     { path: config.routes.vocabulary, component: Vocabulary, layout: MainLayout },
+    { path: config.routes.yourVocabulary, component: YourVocabulary, layout: MainLayout },
     { path: config.routes.detailVocabulary, component: DetailVocabulary, layout: MainLayout },
     { path: config.routes.createVocabulary, component: CreateVocabulary, layout: MainLayout },
     { path: config.routes.editVocabulary, component: EditVocabulary, layout: MainLayout },

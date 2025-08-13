@@ -136,7 +136,6 @@ const DetailVocabulary: React.FC = () => {
                 </div>
 
                 {/* edit */}
-
                 {data.author_id == author_id && (
                     <Dropdown className={cx('edit-menu')} drop="down">
                         <Dropdown.Toggle className={cx('dropdown-menu')}>
