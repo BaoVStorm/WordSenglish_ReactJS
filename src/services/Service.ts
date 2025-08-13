@@ -142,6 +142,21 @@ export const createPosts = async (title: string, description: string, vocab_item
     }
 };
 
+export const deletePost = async (post_id: string) => {
+    try {
+        const res = await api.delete('/api/post/delete', {
+            data: { post_id },
+        });
+
+        return res.data;
+    } catch (err: any) {
+        const message =
+            err.response?.data?.msg || err.response?.data?.message || err.message || 'Unknown error occurred';
+
+        throw new Error(message);
+    }
+};
+
 export const getPosts = async (page: number) => {
     try {
         const res = await api.get('/api/post/posts', {
