@@ -6,7 +6,7 @@ import style from './YourVocabulary.module.scss';
 import VocabularyCard from '@/pages/components/VocabularyCard';
 import Pagination from '@/pages/components/Pagination';
 
-import { getPosts } from '@/services/Service';
+import { getUserPosts } from '@/services/Service';
 import useAuthProfile from '@/hooks/useAuthProfile';
 
 import tempCover from '@/assets/vocab/cover_image.png';
@@ -15,7 +15,7 @@ const cx = classNames.bind(style);
 
 function Vocabulary(): JSX.Element {
     const location = useLocation();
-    const [totalPages, setTotalPages] = useState(0);
+    const [totalPages, setTotalPages] = useState(1);
     const [posts, setPosts] = useState([]);
 
     const [currentPage, setCurrentPage] = useState(() => {
@@ -36,7 +36,7 @@ function Vocabulary(): JSX.Element {
 
         const fetchData = async () => {
             try {
-                const postsData = await getPosts(curPage);
+                const postsData = await getUserPosts(curPage);
                 console.log('Posts:', postsData);
                 setTotalPages(postsData.totalPages);
                 setPosts(postsData.posts);
@@ -57,14 +57,7 @@ function Vocabulary(): JSX.Element {
         <>
             <div className={cx('maxContainer')}>
                 <div className={cx('hero-blog-heading-content')}>
-                    <h2>Vocabularies:</h2>
-                </div>
-
-                <div className={cx('hero-blog-heading-content-sub')}>
-                    <p>
-                        Browse all vocabulary posts, explore new words with their meanings and examples, and easily
-                        review what you've learned. Expand your vocabulary step by step.
-                    </p>
+                    <h2>Your Vocabularies:</h2>
                 </div>
             </div>
 

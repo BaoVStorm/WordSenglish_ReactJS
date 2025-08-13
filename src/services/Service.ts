@@ -183,6 +183,21 @@ export const getPosts = async (page: number) => {
     }
 };
 
+export const getUserPosts = async (page: number) => {
+    try {
+        const res = await api.get('/api/post/userPosts', {
+            params: { page },
+        });
+
+        return res.data;
+    } catch (err: any) {
+        const message =
+            err.response?.data?.msg || err.response?.data?.message || err.message || 'Unknown error occurred';
+
+        throw new Error(message);
+    }
+};
+
 export const getVocabItems = async (post_id: string) => {
     try {
         const res = await api.get('/api/vocabItem/vocabItems', {

@@ -15,7 +15,7 @@ const cx = classNames.bind(style);
 
 function Vocabulary(): JSX.Element {
     const location = useLocation();
-    const [totalPages, setTotalPages] = useState(0);
+    const [totalPages, setTotalPages] = useState(1);
     const [posts, setPosts] = useState([]);
 
     const [currentPage, setCurrentPage] = useState(() => {
