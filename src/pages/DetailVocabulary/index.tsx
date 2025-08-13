@@ -1,4 +1,3 @@
-// DetailVocabulary.tsx
 import React, { useCallback, useEffect, useState } from 'react';
 import { useSearchParams, Navigate, useNavigate } from 'react-router-dom';
 import classNames from 'classnames/bind';

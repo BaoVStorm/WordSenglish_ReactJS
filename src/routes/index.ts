@@ -1,4 +1,14 @@
-import { Home, Login, Register, Forgot, NotFound, Vocabulary, CreateVocabulary, DetailVocabulary } from '@/pages';
+import {
+    Home,
+    Login,
+    Register,
+    Forgot,
+    NotFound,
+    Vocabulary,
+    CreateVocabulary,
+    DetailVocabulary,
+    EditVocabulary,
+} from '@/pages';
 import config from '@/config';
 
 // Layouts
@@ -27,6 +37,7 @@ const publicRoutes: Route[] = [
     { path: config.routes.vocabulary, component: Vocabulary, layout: MainLayout },
     { path: config.routes.detailVocabulary, component: DetailVocabulary, layout: MainLayout },
     { path: config.routes.createVocabulary, component: CreateVocabulary, layout: MainLayout },
+    { path: config.routes.editVocabulary, component: EditVocabulary, layout: MainLayout },
 
     // notFound
     { path: config.routes.notFound, component: NotFound, layout: MainLayout },

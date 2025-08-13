@@ -8,6 +8,7 @@ const routes = {
     vocabulary: '/vocabulary',
     detailVocabulary: '/vocabulary/detail',
     createVocabulary: '/vocabulary/create',
+    editVocabulary: '/vocabulary/edit',
 
     notFound: '/notfound'
 } as const;
