@@ -93,12 +93,13 @@ const DetailVocabulary: React.FC = () => {
         } catch (err) {
             console.error('Failed to load posts:', err);
         }
-    }, []);
+    }, [post_id]);
 
+    // delete
     const handleDelete = useCallback(async () => {
         const confirmed = window.confirm('Bạn có muốn xoá bài này không');
 
-        if (!confirmed) return; // Cancelled
+        if (!confirmed) return;
 
         try {
             await deletePost(post_id);
@@ -106,7 +107,17 @@ const DetailVocabulary: React.FC = () => {
         } catch (err) {
             console.error('Failed to delete post:', err);
         }
-    }, []);
+    }, [post_id]);
+
+    // edit
+    const handleEdit = useCallback(async () => {
+        navigate(routes.editVocabulary, {
+            state: {
+                ...data,
+                post_id
+            },
+        });
+    }, [data]);
 
     if (loading) return <p>Loading...</p>;
     if (!data) return <p>Không tìm thấy dữ liệu</p>;
@@ -133,7 +144,9 @@ const DetailVocabulary: React.FC = () => {
                         </Dropdown.Toggle>
 
                         <Dropdown.Menu align="end">
-                            <Dropdown.Item className={cx('dropdown-edit')}>Chỉnh sửa</Dropdown.Item>
+                            <Dropdown.Item className={cx('dropdown-edit')} onClick={handleEdit}>
+                                Chỉnh sửa
+                            </Dropdown.Item>
                             <Dropdown.Item className={cx('dropdown-delete')} onClick={handleDelete}>
                                 Xoá
                             </Dropdown.Item>

@@ -127,11 +127,22 @@ export const createPosts = async (title: string, description: string, vocab_item
             vocab_items,
         });
 
-        // console.log({
-        //     title,
-        //     description,
-        //     vocab_items,
-        // })
+        return res.data;
+    } catch (err: any) {
+        const message =
+            err.response?.data?.msg || err.response?.data?.message || err.message || 'Unknown error occurred';
+
+        throw new Error(message);
+    }
+};
+
+export const editPost = async (post_id : string | number, title: string, description: string, vocab_items: any[]) => {
+    try {
+        const res = await api.put('/api/post/edit/' + post_id, {
+            title,
+            description,
+            vocab_items,
+        });
 
         return res.data;
     } catch (err: any) {

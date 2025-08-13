@@ -1,15 +1,14 @@
+import { useLocation, useNavigate } from 'react-router-dom';
 import { type JSX, useState } from 'react';
 import classNames from 'classnames/bind';
 
 import Input from '@/components/Input';
 import TextArea from '@/components/TextArea';
 import Button from '@/components/Button';
-
-import { createPosts } from '@/services/Service';
-
 import style from './EditVocabulary.module.scss';
-
 import useAuthProfile from '@/hooks/useAuthProfile';
+import { editPost } from '@/services/Service';
+import routes from '@/config/routes';
 
 const cx = classNames.bind(style);
 
@@ -21,10 +20,16 @@ interface Word {
 }
 
 function CreateVocabulary(): JSX.Element {
-    const [title, setTitle] = useState('');
-    const [description, setDescription] = useState('');
-    const [words, setWords] = useState<Word[]>([{ word_en: '', pronunciation: '', meaning_vi: '', example: '' }]);
-    
+    const data = useLocation().state;
+    const [title, setTitle] = useState(data.title || '');
+    const [description, setDescription] = useState(data.description || '');
+    const [words, setWords] = useState<Word[]>(
+        data.words || [{ word_en: '', pronunciation: '', meaning_vi: '', example: '' }],
+    );
+    const navigate = useNavigate();
+
+    // console.log(data)
+
     // check auth profile
     useAuthProfile();
 
@@ -46,14 +51,19 @@ function CreateVocabulary(): JSX.Element {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        const confirmed = window.confirm('Bạn có xác nhận chỉnh sửa không?');
+        if (!confirmed) return;
+
         try {
-            await createPosts(title, description, words);
-            alert('Vocabulary post created successfully!');
+            await editPost(data.post_id, title, description, words);
+            alert('Chỉnh sửa thành công!');
 
             // clear input
             setTitle('');
             setDescription('');
             setWords([]);
+
+            navigate(routes.home);
         } catch (err: any) {
             console.log('Not logged in:', err.response?.data || err.message);
             alert(err.response?.data || err.message || 'Error');
@@ -149,7 +159,7 @@ function CreateVocabulary(): JSX.Element {
 
                 <div className={cx('submit-btn-container')}>
                     <Button className={cx('submit-btn')} typeButton="primary">
-                        Save Vocabulary
+                        Save Edit
                     </Button>
                 </div>
             </form>
