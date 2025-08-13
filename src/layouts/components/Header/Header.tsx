@@ -21,8 +21,6 @@ function Header(): JSX.Element {
     const username = useSelector((state: any) => state.user.username);
 
     const handleLogout = async () => {
-        // console.log('logout');
-
         try {
             await logout();
             // login

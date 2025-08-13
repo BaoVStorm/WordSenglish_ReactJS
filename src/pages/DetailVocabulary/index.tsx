@@ -2,15 +2,16 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useSearchParams, Navigate } from 'react-router-dom';
 import classNames from 'classnames/bind';
-import styles from './DetailVocabulary.module.scss';
-import VocabularyWord from '@/pages/components/VocabularyWord';
+import Dropdown from 'react-bootstrap/Dropdown';
+import { useSelector } from 'react-redux';
 
+import menuIcon from '@/assets/menu.svg';
+import VocabularyWord from '@/pages/components/VocabularyWord';
+import styles from './DetailVocabulary.module.scss';
 import IconHeart from '@/components/IconHeart';
 import { getVocabItems, toggleLove } from '@/services/Service';
 import useAuthProfile from '@/hooks/useAuthProfile';
-
 import CommentContainer from '@/pages/components/CommentContainer';
-
 import routes from '@/config/routes';
 
 const cx = classNames.bind(styles);
@@ -25,6 +26,7 @@ interface VocabularyWordData {
 
 interface VocabularyDetailData {
     author: string;
+    author_id: string | number;
     title: string;
     description: string;
     date: string;
@@ -35,11 +37,12 @@ interface VocabularyDetailData {
 
 const DetailVocabulary: React.FC = () => {
     const [searchParams] = useSearchParams();
-    const id = searchParams.get('post_id');
     const [data, setData] = useState<VocabularyDetailData | null>(null);
     const [loading, setLoading] = useState(true);
+    const author_id = useSelector((state: any) => state.user.user_id);
 
-    if (!id) return <Navigate to={routes.notFound} />;
+    const post_id = searchParams.get('post_id');
+    if (!post_id) return <Navigate to={routes.notFound} />;
 
     // check auth profile
     useAuthProfile();
@@ -49,14 +52,15 @@ const DetailVocabulary: React.FC = () => {
 
         const fetchData = async () => {
             try {
-                const postsData: any = await getVocabItems(id);
-                console.log('Posts:', postsData);
+                const postsData: any = await getVocabItems(post_id);
+                // console.log('Posts:', postsData);
 
                 const post = postsData.post;
 
                 setData({
                     title: post.title,
                     author: post.username,
+                    author_id: post.author_id._id,
                     date: post.created_at.split('T')[0],
                     description: post.description,
                     love: post.love,
@@ -72,7 +76,7 @@ const DetailVocabulary: React.FC = () => {
         };
 
         fetchData();
-    }, [id]);
+    }, [post_id]);
 
     const handleLove = useCallback(async () => {
         try {
@@ -85,10 +89,14 @@ const DetailVocabulary: React.FC = () => {
                       }
                     : prev,
             );
-            await toggleLove(id);
+            await toggleLove(post_id);
         } catch (err) {
             console.error('Failed to load posts:', err);
         }
+    }, []);
+
+    const handleDelete = useCallback(async () => {
+        
     }, []);
 
     if (loading) return <p>Loading...</p>;
@@ -106,6 +114,21 @@ const DetailVocabulary: React.FC = () => {
                     <p className={cx('vocabulary-heart-count')}>Love count: {data.loveCount}</p>
                     <IconHeart className={cx('vocabulary-heart-icon')} check={data.love} onClick={handleLove} />
                 </div>
+
+                {/* edit */}
+
+                {data.author_id == author_id && (
+                    <Dropdown className={cx('edit-menu')} drop="down">
+                        <Dropdown.Toggle className={cx('dropdown-menu')}>
+                            <img src={menuIcon} />
+                        </Dropdown.Toggle>
+
+                        <Dropdown.Menu align="end">
+                            <Dropdown.Item className={cx('dropdown-edit')}>Chỉnh sửa</Dropdown.Item>
+                            <Dropdown.Item className={cx('dropdown-delete')} onClick={handleDelete}>Xoá</Dropdown.Item>
+                        </Dropdown.Menu>
+                    </Dropdown>
+                )}
             </div>
 
             <div className={cx('banner-line')}></div>
@@ -124,7 +147,7 @@ const DetailVocabulary: React.FC = () => {
 
             <div className={cx('banner-line')}></div>
 
-            <CommentContainer postId={id} className={cx('comment-container')} />
+            <CommentContainer postId={post_id} className={cx('comment-container')} />
         </div>
     );
 };
