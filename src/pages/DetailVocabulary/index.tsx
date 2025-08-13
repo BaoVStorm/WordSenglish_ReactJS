@@ -6,10 +6,8 @@ import styles from './DetailVocabulary.module.scss';
 import VocabularyWord from '@/pages/components/VocabularyWord';
 
 import IconHeart from '@/components/IconHeart';
-import { useNavigate } from 'react-router-dom';
-import { getProfile, getVocabItems, toggleLove } from '@/services/Service';
-import { useDispatch } from 'react-redux';
-import { setUsername } from '@/redux/slices/userSlices';
+import { getVocabItems, toggleLove } from '@/services/Service';
+import useAuthProfile from '@/hooks/useAuthProfile';
 
 import CommentContainer from '@/pages/components/CommentContainer';
 
@@ -40,24 +38,11 @@ const DetailVocabulary: React.FC = () => {
     const id = searchParams.get('post_id');
     const [data, setData] = useState<VocabularyDetailData | null>(null);
     const [loading, setLoading] = useState(true);
-    const navigate = useNavigate();
 
     if (!id) return <Navigate to={routes.notFound} />;
 
-    // set Username to redux
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        (async () => {
-            try {
-                const profile = await getProfile();
-                dispatch(setUsername(profile.username));
-            } catch (err: any) {
-                navigate(routes.login);
-            }
-        })();
-    }, [navigate]);
-    //
+    // check auth profile
+    useAuthProfile();
 
     useEffect(() => {
         setLoading(true);

@@ -1,19 +1,15 @@
-import { type JSX, useState, useEffect } from 'react';
+import { type JSX, useState } from 'react';
 import classNames from 'classnames/bind';
 
 import Input from '@/components/Input';
 import TextArea from '@/components/TextArea';
 import Button from '@/components/Button';
 
-import routes from '@/config/routes';
-
-import { useNavigate } from 'react-router-dom';
-import { getProfile, createPosts } from '@/services/Service';
-
-import { useDispatch } from 'react-redux';
-import { setUsername } from '@/redux/slices/userSlices';
+import { createPosts } from '@/services/Service';
 
 import style from './CreateVocabulary.module.scss';
+
+import useAuthProfile from '@/hooks/useAuthProfile';
 
 const cx = classNames.bind(style);
 
@@ -28,22 +24,9 @@ function CreateVocabulary(): JSX.Element {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [words, setWords] = useState<Word[]>([{ word_en: '', pronunciation: '', meaning_vi: '', example: '' }]);
-    const navigate = useNavigate();
-
-    // set Username to redux
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        (async () => {
-            try {
-                const profile = await getProfile();
-                dispatch(setUsername(profile.username));
-            } catch (err: any) {
-                navigate(routes.login);
-            }
-        })();
-    }, [navigate]);
-    //
+    
+    // check auth profile
+    useAuthProfile();
 
     const handleWordChange = (index: number, field: keyof Word, value: string) => {
         const updated = [...words];
